@@ -1,0 +1,2314 @@
+/* ============================================================
+   VARIABLES
+   ============================================================ */
+:root {
+  --color-main-dark:   #2B2B2B;
+  --color-title:       #C7B8EA;      /* H1 — лавандовий (на відміну від готового де жовтий) */
+  --color-accent:      #FFC857;      /* CTA-кнопка — жовтий */
+  --color-text:        #000000;
+  --color-bg:          #FFF9F3;
+  --color-ellipse:     rgba(199, 184, 234, 0.5); /* фіолетовий еліпс */
+
+  --font-display:      'Playfair Display', serif;
+  --font-body:         'Montserrat', sans-serif;
+
+  --header-height:     70px;
+  --page-width:        1280px;
+  --page-padding:      75px;
+}
+
+/* ============================================================
+   RESET / BASE
+   ============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+.header {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  height: var(--header-height);
+  background-color: transparent;
+}
+
+/* Декоративний blur-еліпс — правий верхній кут, під контентом */
+.header__decor-ellipse {
+  position: absolute;
+  width: 227px;
+  height: 227px;
+  right: -30px;
+  top: -114px;
+  background: var(--color-ellipse);
+  filter: blur(40px);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* ============================================================
+   NAV — DESKTOP
+   ============================================================ */
+.nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--page-padding);
+  height: var(--header-height);
+  max-width: var(--page-width);
+  margin: 0 auto;
+}
+
+.nav__list {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav__item {
+  display: flex;
+}
+
+.nav__link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 21px;
+  line-height: 108.69%;
+  color: var(--color-main-dark);
+  transition: opacity 0.2s ease;
+}
+
+.nav__link:hover,
+.nav__link:focus-visible {
+  opacity: 0.65;
+  outline: 2px solid var(--color-title);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.nav__social {
+  display: flex;
+  align-items: center;
+  transition: opacity 0.2s ease;
+}
+
+.nav__social:hover,
+.nav__social:focus-visible {
+  opacity: 0.65;
+}
+
+.nav__social-icon {
+  width: 37px;
+  height: 37px;
+}
+
+.nav__right {
+  position: absolute;
+  right: var(--page-padding);
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  z-index: 2;
+}
+
+/* --- LANGUAGE SWITCHER --- */
+.nav__lang {
+  position: relative;
+}
+
+.nav__lang-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  background: none;
+  border: 1px solid #C7B8EA;
+  border-radius: 1.25rem;
+  padding: 0.3rem 0.75rem;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 0.9375rem;
+  color: var(--color-main-dark);
+  letter-spacing: 0.05em;
+  transition: border-color 0.2s ease;
+  white-space: nowrap;
+}
+
+.nav__lang-btn:hover {
+  border-color: #b8a7df;
+}
+
+.nav__lang-arrow {
+  flex-shrink: 0;
+  transition: transform 0.25s ease;
+}
+
+.nav__lang--open .nav__lang-arrow {
+  transform: rotate(180deg);
+}
+
+.nav__lang-dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + 0.375rem);
+  right: 0;
+  min-width: 100%;
+  background: #FFFFFF;
+  border: 1px solid #C7B8EA;
+  border-radius: 0.9375rem;
+  overflow: hidden;
+  list-style: none;
+  padding: 0.25rem 0;
+  z-index: 100;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.nav__lang-dropdown--open {
+  display: block;
+}
+
+.nav__lang-option {
+  padding: 0.4rem 0.875rem;
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  color: var(--color-main-dark);
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.nav__lang-option:hover {
+  background: rgba(199, 184, 234, 0.2);
+}
+
+.nav__lang-option--active {
+  font-weight: 500;
+  color: #C7B8EA;
+}
+
+.nav__mobile-right {
+  display: none;
+}
+
+/* Mobile controls (Instagram + бургер) — приховані на desktop */
+.nav__mobile-controls {
+  display: none;
+}
+
+/* ============================================================
+   BURGER BUTTON
+   ============================================================ */
+.nav__burger {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 36px;
+  height: 36px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  flex-shrink: 0;
+}
+
+.nav__burger-line {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-main-dark);
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  transform-origin: center;
+}
+
+/* Анімація → хрестик */
+.nav__burger--open .nav__burger-line:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.nav__burger--open .nav__burger-line:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+.nav__burger--open .nav__burger-line:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ============================================================
+   MOBILE DROPDOWN MENU
+   ============================================================ */
+.nav__dropdown {
+  display: none;
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.35s ease;
+  background-color: var(--color-bg);
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.nav__dropdown--open {
+  max-height: 300px;
+}
+
+.nav__dropdown-list {
+  display: flex;
+  flex-direction: column;
+  padding: 12px var(--page-padding) 20px;
+  gap: 4px;
+}
+
+.nav__dropdown-link {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 19px;
+  line-height: 108.69%;
+  color: var(--color-main-dark);
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  transition: opacity 0.2s ease;
+}
+
+.nav__dropdown-link:hover {
+  opacity: 0.65;
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+  position: relative;
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding: 0 var(--page-padding) 80px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 60px;
+}
+
+/* --- CONTENT (ліворуч) --- */
+.hero__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  padding-top: 66px;
+  flex: 1;
+  /* висота = фото + його margin-top, щоб нижній край збігався */
+  min-height: calc(542px + 1.5625rem);
+}
+
+/* Title block */
+.hero__title-wrap {
+  margin-bottom: 32px;
+  align-self: stretch;
+}
+
+.hero__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 55px;
+  line-height: 108.69%;
+  letter-spacing: 0.05em;
+  color: var(--color-title);
+  white-space: nowrap;
+}
+
+.hero__title-underline {
+  display: block;
+  margin-top: -4px;
+  width: 100%;
+  max-width: 678px;
+  height: auto;
+  overflow: visible;
+}
+
+/* Subtitle */
+.hero__subtitle {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 21px;
+  line-height: 26px;
+  letter-spacing: 0.1em;
+  color: var(--color-text);
+  align-self: stretch;
+  margin-bottom: 13px;
+}
+
+/* Description */
+.hero__description {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 21px;
+  line-height: 26px;
+  letter-spacing: 0.1em;
+  color: var(--color-text);
+  align-self: stretch;
+  /* штовхає CTA + badge до низу колонки */
+  margin-bottom: auto;
+}
+
+/* CTA Button */
+.hero__cta {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px 25px;
+  width: 313px;
+  height: 60px;
+  background-color: var(--color-accent);
+  border-radius: 35px;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 21px;
+  line-height: 150%;
+  letter-spacing: 0.1em;
+  color: var(--color-text);
+  white-space: nowrap;
+  align-self: flex-start;
+  margin-top: 36px;
+  transition: filter 0.25s ease, transform 0.15s ease;
+}
+
+.hero__cta:hover {
+  filter: brightness(0.92);
+  transform: translateY(-2px);
+}
+
+.hero__cta:active {
+  transform: translateY(0);
+}
+
+/* Duration badge — унікальний елемент цього лендінгу */
+.hero__badge {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 14px;
+  gap: 0;
+}
+
+.hero__badge-icon {
+  display: block;
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+}
+
+.hero__badge-text {
+  padding: 10px;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0.1em;
+  color: var(--color-text);
+}
+
+/* --- PHOTO (праворуч) --- */
+.hero__photo-wrap {
+  position: relative;
+  flex-shrink: 0;
+  width: 485px;
+  z-index: 1;
+  margin-top: 1.5625rem;
+}
+
+/* Gradient overlay поверх фото */
+.hero__photo-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(265.69deg, rgba(0, 0, 0, 0.2) 2.94%, rgba(102, 102, 102, 0) 94.23%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.hero__photo {
+  width: 100%;
+  height: 542px;
+  object-fit: cover;
+  display: block;
+  position: relative;
+  z-index: 1;
+}
+
+/* ============================================================
+   RESPONSIVE — TABLET (≤ 1024px)
+   ============================================================ */
+@media (max-width: 1024px) {
+  :root {
+    --page-padding: 32px;
+  }
+
+  /* Tablet nav — ховаємо десктоп меню, показуємо mobile-controls */
+  .nav__list {
+    display: none;
+  }
+
+  .nav__right {
+    display: none;
+  }
+
+  .nav__mobile-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .nav__mobile-right {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .nav__dropdown {
+    display: block;
+  }
+
+  /* Hero — зберігаємо розташування, лише масштабуємо */
+  .hero {
+    gap: 32px;
+    padding-bottom: 60px;
+  }
+
+  .hero__content {
+    padding-top: 48px;
+    min-height: 0;
+  }
+
+  /* H1 пропорційно менший */
+  .hero__title {
+    font-size: 40px;
+    white-space: nowrap;
+  }
+
+  .hero__title-underline {
+    max-width: 100%;
+  }
+
+  .hero__subtitle {
+    font-size: 17px;
+    margin-top: 36px;
+  }
+
+  .hero__description {
+    font-size: 17px;
+  }
+
+  .hero__cta {
+    font-size: 17px;
+    height: 52px;
+    min-width: 260px;
+    width: auto;
+  }
+
+  .hero__badge-text {
+    font-size: 14px;
+  }
+
+  /* Фото — зберігаємо пропорцію desktop (485×542) ~89.5% */
+  .hero__photo-wrap {
+    flex-shrink: 0;
+    width: 360px;
+    margin-top: 1.5625rem;
+  }
+
+  .hero__photo {
+    height: 403px;
+  }
+}
+
+/* ============================================================
+   RESPONSIVE — TABLET SMALL (≤ 860px)
+   ============================================================ */
+@media (max-width: 860px) {
+  .hero__title {
+    font-size: 34px;
+    white-space: normal;
+  }
+
+  .hero__photo-wrap {
+    width: 300px;
+  }
+
+  .hero__photo {
+    height: 335px;
+  }
+
+  .hero__subtitle,
+  .hero__description {
+    font-size: 15px;
+  }
+
+  .hero__cta {
+    font-size: 15px;
+    height: 48px;
+    min-width: 220px;
+  }
+}
+
+/* ============================================================
+   RESPONSIVE — MOBILE (≤ 768px)
+   ============================================================ */
+@media (max-width: 768px) {
+  :root {
+    --page-padding: 20px;
+    --header-height: 60px;
+  }
+
+  /* Еліпс прибираємо на мобайлі */
+  .header__decor-ellipse {
+    display: none;
+  }
+
+  /* Показуємо мобайл-контролі, ховаємо десктоп */
+  .nav__list {
+    display: none;
+  }
+
+  .nav__right {
+    display: none;
+  }
+
+  .nav__mobile-right {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .nav__mobile-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .nav__dropdown {
+    display: block;
+  }
+
+  .nav__dropdown-list {
+    padding: 12px var(--page-padding) 20px;
+  }
+
+  /* Hero — вертикальний стек: контент зверху, фото знизу */
+  .hero {
+    flex-direction: column;
+    padding-bottom: 48px;
+    gap: 0;
+  }
+
+  .hero__content {
+    padding-top: 40px;
+    order: 1;
+    min-height: auto;
+    align-items: center;
+    text-align: center;
+  }
+
+  .hero__description {
+    margin-bottom: 0;
+  }
+
+  .hero__title {
+    font-size: 32px;
+    white-space: normal;
+    text-align: center;
+  }
+
+  .hero__title-underline {
+    max-width: 320px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero__subtitle {
+    font-size: 16px;
+    text-align: center;
+  }
+
+  .hero__description {
+    font-size: 16px;
+    margin-bottom: 0;
+    text-align: center;
+  }
+
+  .hero__cta {
+    width: 100%;
+    max-width: none;
+    align-self: stretch;
+  }
+
+  .hero__badge {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .hero__photo-wrap {
+    order: 2;
+    width: 100%;
+    margin-top: 32px;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .hero__photo {
+    height: 420px;
+  }
+}
+
+/* ============================================================
+   RESPONSIVE — SMALL MOBILE (≤ 480px)
+   ============================================================ */
+@media (max-width: 480px) {
+  .hero__title {
+    font-size: 28px;
+  }
+
+  .hero__photo {
+    height: 320px;
+  }
+}
+
+/* ============================================================
+   ABOUT SECTION — Что это и как работает
+   ============================================================ */
+.about {
+  width: 100%;
+  padding: 80px 0 100px;
+  overflow: hidden; /* фото виходить за край */
+}
+
+.about__inner {
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding: 0 var(--page-padding);
+}
+
+/* --- HEADING --- */
+.about__heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 60px;
+}
+
+.about__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 44px;
+  line-height: 108.69%;
+  letter-spacing: 0.05em;
+  text-align: center;
+  color: var(--color-main-dark);
+}
+
+.about__underline {
+  display: block;
+  width: 100%;
+  max-width: 742px;
+  height: auto;
+  margin-top: -4px;
+}
+
+/* --- BODY: два стовпці --- */
+.about__body {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 60px;
+  /* фото виходить за лівий край контейнера на ~15px згідно макету */
+  margin-left: -15px;
+}
+
+/* --- PHOTO --- */
+.about__photo-wrap {
+  flex-shrink: 0;
+  width: 455px;
+}
+
+.about__photo {
+  width: 100%;
+  height: 504px;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* --- TEXT --- */
+.about__text {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  padding-top: 60px; /* вирівнювання тексту по вертикалі відносно фото */
+  max-width: 717px;
+}
+
+.about__paragraph {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 21px;
+  line-height: 26px;
+  letter-spacing: 0.1em;
+  color: var(--color-text);
+}
+
+/* ============================================================
+   ABOUT — TABLET (≤ 1024px)
+   ============================================================ */
+@media (max-width: 1024px) {
+  .about__body {
+    gap: 40px;
+    margin-left: 0; /* скидаємо негативний відступ */
+  }
+
+  .about__photo-wrap {
+    width: 360px;
+  }
+
+  .about__photo {
+    height: 420px;
+  }
+
+  .about__title {
+    font-size: 36px;
+  }
+
+  .about__paragraph {
+    font-size: 18px;
+  }
+}
+
+/* ============================================================
+   ABOUT — MOBILE (≤ 768px)
+   ============================================================ */
+@media (max-width: 768px) {
+  .about {
+    padding: 60px 0 60px;
+  }
+
+  .about__heading {
+    margin-bottom: 40px;
+  }
+
+  .about__title {
+    font-size: 28px;
+  }
+
+  .about__underline {
+    max-width: 100%;
+  }
+
+  .about__body {
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+    margin-left: 0;
+  }
+
+  .about__photo-wrap {
+    width: 100%;
+  }
+
+  .about__photo {
+    height: 320px;
+    border-radius: 12px;
+  }
+
+  .about__text {
+    padding-top: 0;
+    gap: 20px;
+  }
+
+  .about__paragraph {
+    font-size: 16px;
+    text-align: center;
+  }
+}
+
+/* ============================================================
+   REQUESTS SECTION — Запросы с которыми приходят
+   ============================================================ */
+.requests {
+  width: 100%;
+  padding: 80px 0 100px;
+}
+
+.requests__inner {
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding: 0 var(--page-padding);
+}
+
+/* --- HEADING --- */
+.requests__heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 60px;
+}
+
+.requests__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 44px;
+  line-height: 108.69%;
+  letter-spacing: 0.05em;
+  text-align: center;
+  color: var(--color-main-dark);
+}
+
+.requests__underline {
+  display: block;
+  width: 100%;
+  max-width: 742px;
+  height: auto;
+  margin-top: -4px;
+}
+
+/* --- GRID 3×2 --- */
+.requests__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 380px);
+  gap: 20px;
+  justify-content: center;
+}
+
+/* --- CARD --- */
+.requests__card {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 25px;
+  gap: 20px;
+  min-height: 146px;
+  border: 3px solid var(--color-accent-soft, #C7B8EA);
+  border-radius: 25px;
+  background: transparent;
+}
+
+.requests__card-icon {
+  flex-shrink: 0;
+  width: 53px;
+  height: 53px;
+  object-fit: contain;
+}
+
+.requests__card-text {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 21px;
+  line-height: 26px;
+  letter-spacing: 0.1em;
+  color: var(--color-text);
+  flex: 1;
+}
+
+/* ============================================================
+   REQUESTS — TABLET (≤ 1024px)
+   ============================================================ */
+@media (max-width: 1024px) {
+  .requests__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .requests__title {
+    font-size: 36px;
+  }
+
+  .requests__card-text {
+    font-size: 18px;
+  }
+}
+
+/* ============================================================
+   REQUESTS — MOBILE (≤ 768px)
+   ============================================================ */
+@media (max-width: 768px) {
+  .requests {
+    padding: 60px 0 60px;
+  }
+
+  .requests__heading {
+    margin-bottom: 40px;
+  }
+
+  .requests__title {
+    font-size: 28px;
+  }
+
+  .requests__underline {
+    max-width: 100%;
+  }
+
+  .requests__grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .requests__card {
+    min-height: auto;
+    padding: 20px;
+  }
+
+  .requests__card-text {
+    font-size: 16px;
+  }
+}
+
+/* ============================================================
+   PROGRAM SECTION — Программа
+   ============================================================ */
+.program {
+  position: relative;
+  width: 100%;
+  padding: 80px 0 60px;
+}
+
+/* Декоративний blur-еліпс — лівий верхній кут */
+.program__ellipse {
+  position: absolute;
+  width: clamp(100px, 18vw, 227px);
+  height: clamp(100px, 18vw, 227px);
+  left: 0;
+  top: 0;
+  background: rgba(199, 184, 234, 0.5);
+  filter: blur(40px);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  /* Не дозволяємо виходити за правий край */
+  max-width: 50%;
+}
+
+.program__inner {
+  position: relative;
+  z-index: 1;
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding: 0 var(--page-padding);
+}
+
+/* --- HEADING --- */
+.program__heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 60px;
+}
+
+.program__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 44px;
+  line-height: 108.69%;
+  letter-spacing: 0.05em;
+  text-align: center;
+  color: var(--color-main-dark);
+}
+
+.program__underline {
+  display: block;
+  width: 100%;
+  max-width: 347px;
+  height: auto;
+  margin-top: -4px;
+}
+
+/* --- GRID 3 колонки --- */
+.program__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 376px);
+  gap: 20px;
+  justify-content: center;
+}
+
+/* --- CARD --- */
+.program__card {
+  display: flex;
+  flex-direction: column;
+  padding: 29px 39px 20px;
+  gap: 20px;
+  min-height: 414px;
+  background: #FFFFFF;
+  border: 3px solid #C7B8EA;
+  border-radius: 25px;
+  box-sizing: border-box;
+}
+
+/* Верхня частина картки: бейдж + заголовок */
+.program__card-top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(199, 184, 234, 0.4);
+}
+
+/* Нумерований бейдж */
+.program__card-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  background: #C7B8EA;
+  border-radius: 50%;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 1;
+  letter-spacing: 0.05em;
+  color: var(--color-main-dark);
+  flex-shrink: 0;
+}
+
+/* Заголовок картки */
+.program__card-title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 37px;
+  letter-spacing: 0.05em;
+  text-align: center;
+  color: var(--color-main-dark);
+  width: 100%;
+}
+
+/* Список пунктів */
+.program__card-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  list-style: none;
+  padding: 0;
+}
+
+.program__card-item {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 21px;
+  line-height: 26px;
+  letter-spacing: 0.1em;
+  color: var(--color-text);
+  padding-left: 1em;
+  position: relative;
+}
+
+.program__card-item::before {
+  content: '·';
+  position: absolute;
+  left: 0;
+  color: var(--color-main-dark);
+}
+
+/* Підпис під сіткою */
+.program__footnote {
+  margin-top: 40px;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0.1em;
+  text-align: center;
+  color: var(--color-text);
+}
+
+/* ============================================================
+   PROGRAM — TABLET (≤ 1024px)
+   ============================================================ */
+@media (max-width: 1024px) {
+  .program__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Третя картка — по центру у своєму рядку */
+  .program__card:last-child {
+    grid-column: 1 / -1;
+    max-width: 376px;
+    justify-self: center;
+  }
+
+  .program__title {
+    font-size: 36px;
+  }
+
+  .program__card-title {
+    font-size: 24px;
+  }
+
+  .program__card-item {
+    font-size: 18px;
+  }
+}
+
+/* ============================================================
+   PROGRAM — MOBILE (≤ 768px)
+   ============================================================ */
+@media (max-width: 768px) {
+  .program {
+    padding: 60px 0 60px;
+  }
+
+  .program__ellipse {
+    width: 120px;
+    height: 120px;
+    left: -60px;
+    top: -20px;
+  }
+
+  .program__heading {
+    margin-bottom: 40px;
+  }
+
+  .program__title {
+    font-size: 28px;
+  }
+
+  .program__underline {
+    max-width: 220px;
+  }
+
+  .program__grid {
+    grid-template-columns: 1fr;
+
+  }
+
+  .program__card:last-child {
+    grid-column: auto;
+    max-width: none;
+    justify-self: auto;
+  }
+
+  .program__card {
+    min-height: auto;
+    padding: 24px;
+    position: sticky;
+    top: calc(var(--header-height) + 16px);
+  }
+
+  /* Кожна картка має свій z-index щоб наступна виїжджала поверх попередньої */
+  .program__card:nth-child(1) { z-index: 1; }
+  .program__card:nth-child(2) { z-index: 2; }
+  .program__card:nth-child(3) { z-index: 3; }
+
+  .program__card-title {
+    font-size: 22px;
+    line-height: 30px;
+  }
+
+  .program__card-item {
+    font-size: 16px;
+  }
+
+  .program__footnote {
+    font-size: 14px;
+    margin-top: 28px;
+  }
+}
+
+/* ============================================================
+   RESULTS SECTION — В результате работы вы
+   ============================================================ */
+.results {
+  width: 100%;
+  padding: 80px 0 100px;
+}
+
+.results__inner {
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding: 0 var(--page-padding);
+}
+
+/* --- HEADING — вліво, як у макеті --- */
+.results__heading {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 60px;
+}
+
+.results__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 44px;
+  line-height: 108.69%;
+  letter-spacing: 0.05em;
+  color: var(--color-main-dark);
+}
+
+.results__underline {
+  display: block;
+  width: 100%;
+  max-width: 581px;
+  height: auto;
+  margin-top: -4px;
+}
+
+/* --- 5 іконок в ряд --- */
+.results__items {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 20px 0;
+  gap: 16px;
+  margin-bottom: 80px;
+}
+
+.results__item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  width: 224px;
+  flex-shrink: 0;
+}
+
+.results__item-icon {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.results__item-text {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  letter-spacing: 0.1em;
+  text-align: center;
+  color: var(--color-text);
+  width: 100%;
+}
+
+/* --- Блок ціни --- */
+.results__price {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  padding: 0 40px;
+  height: 119px;
+  background: rgba(199, 184, 234, 0.5);
+  border-radius: 25px;
+}
+
+.results__price-label {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 34px;
+  line-height: 45px;
+  letter-spacing: 0.05em;
+  text-align: center;
+  color: var(--color-text);
+  white-space: nowrap;
+}
+
+/* Вертикальний роздільник */
+.results__price-divider {
+  display: block;
+  width: 3px;
+  height: 83px;
+  background: #FFC857;
+  flex-shrink: 0;
+  border-radius: 2px;
+}
+
+.results__price-value {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 44px;
+  line-height: 108.69%;
+  letter-spacing: 0.05em;
+  text-align: center;
+  color: var(--color-text);
+  white-space: nowrap;
+}
+
+/* Підпис під ціною */
+.results__price-note {
+  margin-top: 22px;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  letter-spacing: 0.1em;
+  text-align: center;
+  color: var(--color-text);
+}
+
+/* ============================================================
+   RESULTS — TABLET (≤ 1024px)
+   ============================================================ */
+@media (max-width: 1024px) {
+  .results__items {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 32px;
+  }
+
+  .results__item {
+    width: 180px;
+  }
+
+  .results__title {
+    font-size: 36px;
+  }
+
+  .results__price-label {
+    font-size: 28px;
+  }
+
+  .results__price-value {
+    font-size: 36px;
+  }
+}
+
+/* ============================================================
+   RESULTS — MOBILE (≤ 768px)
+   ============================================================ */
+@media (max-width: 768px) {
+  .results {
+    padding: 60px 0 60px;
+  }
+
+  .results__heading {
+    margin-bottom: 40px;
+  }
+
+  .results__title {
+    font-size: 28px;
+  }
+
+  .results__underline {
+    max-width: 100%;
+  }
+
+  .results__items {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px 16px;
+    margin-bottom: 48px;
+    padding: 0;
+  }
+
+  /* П'ятий елемент — по центру */
+  .results__item:last-child {
+    grid-column: 1 / -1;
+    width: 224px;
+    justify-self: center;
+  }
+
+  .results__item {
+    width: auto;
+  }
+
+  .results__price {
+    flex-direction: column;
+    gap: 16px;
+    height: auto;
+    padding: 28px 24px;
+  }
+
+  .results__price-divider {
+    width: 83px;
+    height: 3px;
+  }
+
+  .results__price-label {
+    font-size: 24px;
+  }
+
+  .results__price-value {
+    font-size: 32px;
+  }
+
+  .results__price-note {
+    font-size: 14px;
+  }
+}
+
+/* ============================================================
+   BOOKING SECTION — Как записаться
+   ============================================================ */
+.booking {
+  position: relative;
+  width: 100%;
+  padding: 80px 0 100px;
+}
+
+/* Декоративний blur-еліпс — лівий край */
+.booking__ellipse {
+  position: absolute;
+  width: 227px;
+  height: 255px;
+  left: -92px;
+  top: 0;
+  background: rgba(199, 184, 234, 0.35);
+  filter: blur(40px);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.booking__inner {
+  position: relative;
+  z-index: 1;
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding: 0 var(--page-padding);
+}
+
+/* --- HEADING по центру --- */
+.booking__heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 60px;
+}
+
+.booking__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 44px;
+  line-height: 108.69%;
+  letter-spacing: 0.05em;
+  text-align: center;
+  color: var(--color-main-dark);
+}
+
+.booking__underline {
+  display: block;
+  width: 100%;
+  max-width: 473px;
+  height: auto;
+  margin-top: -4px;
+}
+
+/* --- BODY: два стовпці — на всю ширину сторінки --- */
+.booking__body {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+
+/* --- STEPS ліворуч — 70% --- */
+.booking__steps {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 70%;
+}
+
+/* Базовий крок */
+.booking__step {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 20px 20px 20px 90px;
+  gap: 35px;
+  border-left: 2px solid var(--color-main-dark);
+  border-right: 2px solid var(--color-main-dark);
+}
+
+/* 1-й і 2-й крок — без нижньої межі (вони з'єднуються) */
+.booking__step--top {
+  border-top: 2px solid var(--color-main-dark);
+  border-bottom: none;
+}
+
+.booking__step--mid {
+  border-top: 2px solid var(--color-main-dark);
+  border-bottom: none;
+}
+
+/* 3-й крок — повна рамка */
+.booking__step--bot {
+  border: 2px solid var(--color-main-dark);
+}
+
+/* Велика цифра */
+.booking__step-num {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 55px;
+  line-height: 108.69%;
+  letter-spacing: 0.05em;
+  color: var(--color-title);   /* #C7B8EA */
+  flex-shrink: 0;
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  min-width: 40px;
+}
+
+/* Текст кроку */
+.booking__step-text {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 21px;
+  line-height: 26px;
+  letter-spacing: 0.1em;
+  color: var(--color-main-dark);
+  flex: 1;
+}
+
+/* --- ФОТО праворуч — 30%, висота = висота steps --- */
+.booking__photo-wrap {
+  flex: 1;
+  overflow: hidden;
+  align-self: stretch;
+  display: flex;
+}
+
+.booking__photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* --- CTA кнопки --- */
+.booking__cta-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 35px;
+  margin-top: 60px;
+  flex-wrap: wrap;
+}
+
+.booking__cta {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px 25px;
+  height: 60px;
+  border-radius: 35px;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 21px;
+  line-height: 150%;
+  letter-spacing: 0.1em;
+  color: var(--color-text);
+  white-space: nowrap;
+  transition: filter 0.2s ease, transform 0.15s ease;
+  cursor: pointer;
+}
+
+.booking__cta--fill {
+  width: 313px;
+  background: var(--color-accent);
+  border: 2px solid transparent;
+}
+
+.booking__cta--outline {
+  width: 370px;
+  background: transparent;
+  border: 2px solid var(--color-accent);
+}
+
+.booking__cta:hover {
+  filter: brightness(0.92);
+  transform: translateY(-2px);
+}
+
+.booking__cta:active {
+  transform: translateY(0);
+}
+
+/* ============================================================
+   BOOKING — TABLET (≤ 1024px)
+   ============================================================ */
+@media (max-width: 1024px) {
+  .booking__body {
+    gap: 0;
+  }
+
+  .booking__steps {
+    flex: 0 0 57%;
+  }
+
+  .booking__photo-wrap {
+    flex: 1;
+  }
+
+  .booking__step {
+    padding: 20px 20px 20px 40px;
+  }
+
+  .booking__step-num {
+    font-size: 44px;
+  }
+
+  .booking__title {
+    font-size: 36px;
+  }
+
+  .booking__step-text {
+    font-size: 18px;
+  }
+
+  .booking__cta--fill,
+  .booking__cta--outline {
+    width: auto;
+    min-width: 240px;
+  }
+}
+
+/* ============================================================
+   BOOKING — MOBILE (≤ 768px)
+   ============================================================ */
+@media (max-width: 768px) {
+  .booking {
+    padding: 60px 0 60px;
+  }
+
+  .booking__ellipse {
+    display: none;
+  }
+
+  .booking__heading {
+    margin-bottom: 40px;
+  }
+
+  .booking__title {
+    font-size: 28px;
+  }
+
+  .booking__underline {
+    max-width: 100%;
+  }
+
+  /* Стек: кроки зверху, фото знизу */
+  .booking__body {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .booking__steps {
+    flex: none;
+    width: 100%;
+  }
+
+  .booking__step {
+    padding: 20px 16px 20px 24px;
+    gap: 20px;
+  }
+
+  .booking__step-num {
+    font-size: 36px;
+    min-width: 28px;
+  }
+
+  .booking__step-text {
+    font-size: 16px;
+  }
+
+  .booking__photo-wrap {
+    flex: none;
+    width: 100%;
+    height: 280px;
+  }
+
+  .booking__photo {
+    height: 280px;
+  }
+
+  .booking__cta-group {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+    margin-top: 40px;
+  }
+
+  .booking__cta--fill,
+  .booking__cta--outline {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* ============================================================
+   REVIEWS SECTION
+   ============================================================ */
+.reviews {
+  width: 100%;
+  padding: 80px var(--page-padding) 100px;
+}
+
+.reviews__inner {
+  max-width: var(--page-width);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3.75rem;
+}
+
+.reviews__heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.reviews__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 2.75rem;
+  line-height: 108.69%;
+  letter-spacing: 0.05em;
+  text-align: center;
+  color: var(--color-main-dark);
+}
+
+.reviews__underline {
+  display: block;
+  width: 100%;
+  max-width: 29.6875rem;
+  height: auto;
+  margin-top: -0.25rem;
+  overflow: visible;
+}
+
+/* --- DESKTOP STACK --- */
+.reviews__stack {
+  position: relative;
+  width: 100%;
+  max-width: 72.4375rem;
+  height: 28.125rem;
+}
+
+.reviews__slider { display: none; }
+
+.reviews__card {
+  position: absolute;
+  border-radius: 0.9375rem;
+  background: transparent;
+  overflow: hidden;
+  cursor: pointer;
+  /* Scale + filter transition при активації */
+  transition: filter 0.4s ease, opacity 0.4s ease, transform 0.4s ease, width 0.4s ease;
+  /* Не виходити за межі стека */
+  max-width: 100%;
+}
+
+.reviews__card-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 0.9375rem;
+  user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: none;
+  /* Зображення зменшується якщо занадто велике */
+  max-width: 100%;
+  object-fit: contain;
+}
+
+/* Активна картка — повний розмір, на передньому плані */
+.reviews__card--active {
+  z-index: 3;
+  filter: none;
+  opacity: 1;
+  cursor: default;
+  transform: scale(1);
+}
+
+/* Неактивні картки — зменшені та розмиті */
+.reviews__card--back {
+  z-index: 1;
+  filter: blur(3px);
+  opacity: 0.75;
+  transform: scale(0.92);
+}
+
+.reviews__card--back:hover {
+  filter: blur(0);
+  opacity: 1;
+  z-index: 4;
+  transform: scale(0.96);
+}
+
+.reviews__card[data-index="0"] {
+  width: min(34.59rem, 55%);
+  left: 0;
+  top: 0;
+}
+
+.reviews__card[data-index="1"] {
+  width: min(46.2rem, 72%);
+  right: 0;
+  bottom: 0;
+  left: auto;
+  top: auto;
+}
+
+.reviews__card[data-index="2"] {
+  width: min(28.03rem, 44%);
+  right: 0;
+  top: 2rem;
+  left: auto;
+}
+
+.reviews__card[data-index="3"] {
+  width: min(34.59rem, 55%);
+  left: 0;
+  bottom: 0;
+  top: auto;
+}
+
+/* --- TABLET --- */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .reviews__stack {
+    height: auto;
+    min-height: 26rem;
+  }
+  .reviews__card[data-index="0"] { width: min(50%, 28rem); }
+  .reviews__card[data-index="1"] { width: min(65%, 36rem); }
+  .reviews__card[data-index="2"] { width: min(42%, 24rem); }
+  .reviews__card[data-index="3"] { width: min(50%, 28rem); }
+}
+
+/* --- MOBILE SLIDER --- */
+@media (max-width: 768px) {
+  .reviews {
+    padding: 60px var(--page-padding) 60px;
+  }
+
+  .reviews__inner { gap: 2.5rem; }
+
+  .reviews__title { font-size: 1.75rem; }
+
+  .reviews__stack  { display: none; }
+  .reviews__slider { display: block; width: 100%; }
+
+  .reviews__slider-track-wrap {
+    overflow: hidden;
+    width: 100%;
+    border-radius: 0.9375rem;
+  }
+
+  .reviews__slider-track {
+    display: flex;
+    transition: transform 0.35s ease;
+    will-change: transform;
+  }
+
+  .reviews__slide {
+    min-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .reviews__slide img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 0.9375rem;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+
+  .reviews__dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1.25rem;
+  }
+
+  .reviews__dot {
+    width: 0.625rem;
+    height: 0.625rem;
+    border-radius: 50%;
+    border: none;
+    background: rgba(43,43,43,0.25);
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.25s ease, transform 0.2s ease;
+  }
+
+  .reviews__dot--active {
+    background: var(--color-main-dark);
+    transform: scale(1.3);
+  }
+}
+
+/* ============================================================
+   CONTACT SECTION
+   ============================================================ */
+.contact {
+  position: relative;
+  width: 100%;
+  padding: 80px var(--page-padding) 100px;
+}
+
+.contact__inner {
+  max-width: var(--page-width);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 4rem;
+}
+
+.contact__left {
+  position: relative;
+  flex: 0 0 34.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.contact__desc {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 1.3125rem;
+  line-height: 1.625rem;
+  letter-spacing: 0.1em;
+  color: var(--color-main-dark);
+  position: relative;
+  z-index: 1;
+}
+
+.contact__ellipse {
+  position: absolute;
+  width: 227px;
+  height: 227px;
+  left: -2rem;
+  top: 3rem;
+  background: rgba(199, 184, 234, 0.6);
+  filter: blur(40px);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.contact__form-wrap {
+  flex: 1;
+  background: #FFF9F3;
+  border: 3px solid #FFC857;
+  border-radius: 2.1875rem;
+  padding: 2rem 2.5rem;
+  box-sizing: border-box;
+  max-width: 34.375rem;
+}
+
+.contact__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.125rem;
+}
+
+.contact__field {
+  position: relative;
+}
+
+.contact__label {
+  position: absolute;
+  left: 1.25rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 1.25rem;
+  font-variant: all-small-caps;
+  color: #949494;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.contact__input:focus + .contact__label,
+.contact__input:not(:placeholder-shown) + .contact__label {
+  opacity: 0;
+}
+
+.contact__field:has(.contact__input--textarea) .contact__label {
+  top: 1rem;
+  transform: none;
+}
+
+.contact__input {
+  width: 100%;
+  background: transparent;
+  border: 1px solid #C7B8EA;
+  border-radius: 2.1875rem;
+  padding: 0.875rem 1.25rem;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--color-text);
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.contact__input:focus {
+  border-color: #C7B8EA;
+  box-shadow: 0 0 0 3px rgba(199, 184, 234, 0.25);
+}
+
+.contact__input--textarea {
+  border-radius: 1.5625rem;
+  resize: none;
+  min-height: 7.5rem;
+  line-height: 1.5;
+}
+
+.contact__submit {
+  align-self: center;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px 25px;
+  background: #C7B8EA;
+  border: none;
+  border-radius: 2.1875rem;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 1.3125rem;
+  line-height: 150%;
+  letter-spacing: 0.1em;
+  color: var(--color-text);
+  cursor: pointer;
+  white-space: nowrap;
+  min-width: 45%;
+  transition: background-color 0.25s ease, transform 0.15s ease;
+}
+
+.contact__submit:hover {
+  background-color: #b8a7df;
+  transform: translateY(-2px);
+}
+
+.contact__submit:active {
+  transform: translateY(0);
+}
+
+.contact__privacy {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  text-align: center;
+  color: #949494;
+  padding: 0 0.5rem;
+}
+
+@media (max-width: 1024px) {
+  .contact__left {
+    flex: 0 0 auto;
+    width: 40%;
+  }
+  .contact__form-wrap {
+    flex: 1;
+    max-width: none;
+  }
+  .contact__desc {
+    font-size: 1.125rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact {
+    padding: 60px var(--page-padding) 60px;
+  }
+  .contact__inner {
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+  .contact__left {
+    width: 100%;
+    flex: none;
+  }
+  .contact__ellipse {
+    width: 160px;
+    height: 160px;
+    left: -1rem;
+    top: 2rem;
+  }
+  .contact__form-wrap {
+    width: 100%;
+    max-width: none;
+    padding: 1.5rem;
+  }
+  .contact__submit {
+    width: 100%;
+    min-width: unset;
+  }
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.footer {
+  width: 100%;
+  background: #C7B8EA;
+  min-height: 198px;
+  display: flex;
+  align-items: center;
+}
+
+.footer__inner {
+  width: 100%;
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding: 0 var(--page-padding);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.footer__top {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 57px;
+}
+
+.footer__name {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 1.3125rem;
+  line-height: 1.625rem;
+  letter-spacing: 0.1em;
+  color: #2B2B2B;
+}
+
+.footer__nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.footer__nav-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.625rem;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 1.3125rem;
+  line-height: 108.69%;
+  color: #2B2B2B;
+  transition: opacity 0.2s ease;
+}
+
+.footer__nav-link:hover {
+  opacity: 0.65;
+}
+
+.footer__socials {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.5rem;
+}
+
+.footer__social-link {
+  display: flex;
+  align-items: center;
+  transition: opacity 0.2s ease, transform 0.15s ease;
+}
+
+.footer__social-link:hover {
+  opacity: 0.8;
+  transform: translateY(-2px);
+}
+
+.footer__social-icon {
+  width: 3.375rem;
+  height: 3.375rem;
+  display: block;
+}
+
+@media (max-width: 1024px) {
+  .footer__nav { gap: 0.5rem; }
+  .footer__nav-link { font-size: 1.125rem; padding: 0.5rem; }
+  .footer__name { font-size: 1.125rem; }
+}
+
+@media (max-width: 768px) {
+  .footer {
+    min-height: auto;
+    padding: 2rem 0;
+  }
+  .footer__inner {
+    align-items: center;
+    gap: 1.25rem;
+  }
+  .footer__top {
+    flex-direction: column;
+    height: auto;
+    gap: 1rem;
+    align-items: center;
+  }
+  .footer__nav {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.25rem;
+  }
+  .footer__nav-link { font-size: 1rem; }
+  .footer__name { font-size: 1rem; }
+  .footer__social-icon {
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+}

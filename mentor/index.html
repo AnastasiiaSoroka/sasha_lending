@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Александра Новохатняя — Менторство по тайм-менеджменту</title>
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <link rel="apple-touch-icon" href="favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&family=Playfair+Display:wght@600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- HEADER / NAV -->
+  <header class="header" role="banner">
+
+    <!-- Декоративний blur-еліпс (як header__decor-ellipse у готовому файлі) -->
+    <div class="header__decor-ellipse" aria-hidden="true"></div>
+
+    <nav class="nav" aria-label="Основна навігація">
+
+      <!-- DESKTOP: список меню ліворуч -->
+      <ul class="nav__list" id="nav-list">
+        <li class="nav__item"><a href="#about"      class="nav__link">обо мне</a></li>
+        <li class="nav__item"><a href="#mentorship" class="nav__link">менторство</a></li>
+        <li class="nav__item"><a href="#coaching"   class="nav__link">коучинг</a></li>
+      </ul>
+
+      <!-- DESKTOP: Instagram + перемикач мови праворуч -->
+      <div class="nav__right">
+        <a href="https://instagram.com" class="nav__social nav__social--desktop" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+         <!-- <img src="assets/Social_Icons.png" alt="Instagram" class="nav__social-icon" width="37" height="37" /> -->
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+          <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.8"/>
+          <circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/>
+          <circle cx="17.5" cy="6.5" r="1" fill="currentColor"/>
+        </svg>
+        </a>
+
+        <!-- Перемикач мови -->
+        <div class="nav__lang" id="nav-lang">
+          <button class="nav__lang-btn" id="lang-btn" aria-haspopup="listbox" aria-expanded="false" aria-label="Вибір мови">
+            <span class="nav__lang-current" id="lang-current">UA</span>
+            <svg class="nav__lang-arrow" width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true">
+              <path d="M1 1L5 5L9 1" stroke="#2B2B2B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <ul class="nav__lang-dropdown" id="lang-dropdown" role="listbox" aria-label="Мови" aria-hidden="true">
+            <li class="nav__lang-option nav__lang-option--active" role="option" aria-selected="true"  data-lang="RU">RU</li>
+            <li class="nav__lang-option"                          role="option" aria-selected="false" data-lang="UA">UA</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- TABLET + MOBILE: бургер ліворуч, Instagram + мова праворуч -->
+      <div class="nav__mobile-controls">
+
+        <!-- Бургер — ліворуч -->
+        <button class="nav__burger" id="burger-btn" aria-label="Відкрити меню" aria-expanded="false" aria-controls="mobile-menu" type="button">
+          <span class="nav__burger-line"></span>
+          <span class="nav__burger-line"></span>
+          <span class="nav__burger-line"></span>
+        </button>
+
+        <!-- Instagram + мова — праворуч -->
+        <div class="nav__mobile-right">
+          <a href="https://instagram.com" class="nav__social nav__social--mobile" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+            <img src="assets/Social_Icons.png" alt="Instagram" class="nav__social-icon" width="37" height="37" />
+          </a>
+
+          <div class="nav__lang nav__lang--mobile" id="nav-lang-mobile">
+            <button class="nav__lang-btn" id="lang-btn-mobile" aria-haspopup="listbox" aria-expanded="false" aria-label="Вибір мови">
+              <span class="nav__lang-current" id="lang-current-mobile">RU</span>
+              <svg class="nav__lang-arrow" width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true">
+                <path d="M1 1L5 5L9 1" stroke="#2B2B2B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <ul class="nav__lang-dropdown" id="lang-dropdown-mobile" role="listbox" aria-label="Мови" aria-hidden="true">
+              <li class="nav__lang-option nav__lang-option--active" role="option" aria-selected="true"  data-lang="RU">RU</li>
+              <li class="nav__lang-option"                          role="option" aria-selected="false" data-lang="UA">UA</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
+    </nav>
+
+    <!-- MOBILE dropdown menu -->
+    <div class="nav__dropdown" id="mobile-menu" aria-hidden="true">
+      <ul class="nav__dropdown-list">
+        <li><a href="/sasha_lending/index.html"      class="nav__dropdown-link">главная</a></li>
+        <li><a href="/sasha_lending/mentor/index.html" class="nav__dropdown-link">менторство</a></li>
+        <li><a href="/sasha_lending/coaching/index.html"   class="nav__dropdown-link">коучинг</a></li>
+      </ul>
+    </div>
+
+  </header>
+
+  <!-- HERO SECTION -->
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+
+      <!-- Контент ліворуч -->
+      <div class="hero__content">
+
+        <div class="hero__title-wrap">
+          <h1 class="hero__title" id="hero-title">Александра Новохатняя</h1>
+          <img
+            class="hero__title-underline"
+            src="assets/Vector_15.png"
+            alt=""
+            aria-hidden="true"
+            width="678"
+            height="29"
+          />
+        </div>
+
+        <p class="hero__subtitle">менторство по тайм-менеджменту</p>
+
+        <p class="hero__description">
+          виcтроим систему, которая работает<br />
+          именно для тебя — без перегруза и хаоса
+        </p>
+
+        <a href="#form" class="hero__cta">ЗАПОЛНИТЬ ФОРМУ</a>
+
+        <!-- Duration badge — унікальний елемент цього лендінгу -->
+        <div class="hero__badge">
+          <img loading="lazy" src="assets/image_40.png" alt="" aria-hidden="true" class="hero__badge-icon" width="26" height="26" />
+          <span class="hero__badge-text">3 недели индивидуальной работы</span>
+        </div>
+
+      </div>
+
+      <!-- Фото праворуч -->
+      <div class="hero__photo-wrap">
+        <img
+          class="hero__photo"
+          src="assets/main_photo.webp"
+          alt="Александра Новохатняя — ментор по тайм-менеджменту"
+          width="485"
+          height="542"
+        />
+      </div>
+
+    </section>
+
+    <!-- СЕКЦІЯ: Що це і як працює -->
+    <section class="about" aria-labelledby="about-title">
+      <div class="about__inner">
+
+        <!-- Заголовок по центру -->
+        <div class="about__heading">
+          <h2 class="about__title" id="about-title">Что это и как работает</h2>
+          <img loading="lazy" class="about__underline" src="assets/Vector_20.png" alt="" aria-hidden="true" />
+        </div>
+
+        <!-- Два стовпці: фото + текст -->
+        <div class="about__body">
+
+          <div class="about__photo-wrap">
+            <img
+              class="about__photo"
+              src="assets/image_46.png"
+              alt="Робоче місце з ноутбуком"
+              width="455"
+              height="504"
+            />
+          </div>
+
+          <div class="about__text">
+            <p class="about__paragraph">Это индивидуальная работа со мной в формате менторинга.</p>
+            <p class="about__paragraph">Я не читаю лекции и не даю универсальные советы — мы вместе разбираем твою конкретную ситуацию и выстраиваем систему, которая работает именно для тебя.</p>
+            <p class="about__paragraph">Разбираем внутренние блоки и прокрастинацию.</p>
+            <p class="about__paragraph">Начинаете управлять своим временем, выстраиваем привычки и систему планирования.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- СЕКЦІЯ: Запросы с которыми приходят -->
+    <section class="requests" aria-labelledby="requests-title">
+      <div class="requests__inner">
+
+        <div class="requests__heading">
+          <h2 class="requests__title" id="requests-title">Запросы с которыми приходят</h2>
+          <img loading="lazy" class="requests__underline" src="assets/Vector_21.png" alt="" aria-hidden="true" />
+        </div>
+
+        <div class="requests__grid">
+
+          <div class="requests__card">
+            <img loading="lazy" src="assets/image_47.png" alt="" aria-hidden="true" class="requests__card-icon" width="53" height="53" />
+            <p class="requests__card-text">День проходит в хаосе, а результата нет</p>
+          </div>
+
+          <div class="requests__card">
+            <img loading="lazy" src="assets/image_48.png" alt="" aria-hidden="true" class="requests__card-icon" width="53" height="53" />
+            <p class="requests__card-text">постоянно не хватает времени</p>
+          </div>
+
+          <div class="requests__card">
+            <img loading="lazy" src="assets/image_49.png" alt="" aria-hidden="true" class="requests__card-icon" width="53" height="53" />
+            <p class="requests__card-text">100 задач, но ни одна не доведена до конца</p>
+          </div>
+
+          <div class="requests__card">
+            <img loading="lazy" src="assets/image_50.png" alt="" aria-hidden="true" class="requests__card-icon" width="53" height="53" />
+            <p class="requests__card-text">Постоянно «срываюсь» с планирования</p>
+          </div>
+
+          <div class="requests__card">
+            <img loading="lazy" src="assets/image_51.png" alt="" aria-hidden="true" class="requests__card-icon" width="53" height="53" />
+            <p class="requests__card-text">Сложно держать фокус</p>
+          </div>
+
+          <div class="requests__card">
+            <img loading="lazy" src="assets/image_52.png" alt="" aria-hidden="true" class="requests__card-icon" width="53" height="53" />
+            <p class="requests__card-text">Хочу найти время на семью и друзей, но нет сил</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- СЕКЦІЯ: Програма -->
+    <section class="program" aria-labelledby="program-title">
+
+      <!-- Декоративний blur-еліпс ліворуч -->
+      <div class="program__ellipse" aria-hidden="true"></div>
+
+      <div class="program__inner">
+
+        <!-- Заголовок по центру -->
+        <div class="program__heading">
+          <h2 class="program__title" id="program-title">Программа</h2>
+          <img loading="lazy" class="program__underline" src="assets/Vector_20.png" alt="" aria-hidden="true" />
+        </div>
+
+        <!-- Сітка карток 3×1 -->
+        <div class="program__grid">
+
+          <!-- Картка 1 -->
+          <div class="program__card">
+            <div class="program__card-top">
+              <div class="program__card-badge">1</div>
+              <h3 class="program__card-title">Диагностическая сессия</h3>
+            </div>
+            <ul class="program__card-list">
+              <li class="program__card-item">1–1,5 часа</li>
+              <li class="program__card-item">разбираем твой график</li>
+              <li class="program__card-item">формулируем цели на 3 недели</li>
+              <li class="program__card-item">определяем вектор изменений</li>
+            </ul>
+          </div>
+
+          <!-- Картка 2 -->
+          <div class="program__card">
+            <div class="program__card-top">
+              <div class="program__card-badge">2</div>
+              <h3 class="program__card-title">3 еженедельных созвона</h3>
+            </div>
+            <ul class="program__card-list">
+              <li class="program__card-item">45–60 мин каждый</li>
+              <li class="program__card-item">Внедряем изменения</li>
+              <li class="program__card-item">подбираем инструменты</li>
+              <li class="program__card-item">разбираем блоки</li>
+              <li class="program__card-item">корректируем.</li>
+            </ul>
+          </div>
+
+          <!-- Картка 3 -->
+          <div class="program__card">
+            <div class="program__card-top">
+              <div class="program__card-badge">3</div>
+              <h3 class="program__card-title">Поддержка между созвонами</h3>
+            </div>
+            <ul class="program__card-list">
+              <li class="program__card-item">домашние задания</li>
+              <li class="program__card-item">текстовая поддержка в мессенджере</li>
+              <li class="program__card-item">контроль и мотивация</li>
+            </ul>
+          </div>
+
+        </div>
+
+        <!-- Підпис під сіткою -->
+        <p class="program__footnote">Полная поддержка на каждом этапе, чтобы изминения стали привычкой</p>
+
+      </div>
+    </section>
+
+    <!-- СЕКЦІЯ: В результате работы вы -->
+    <section class="results" aria-labelledby="results-title">
+      <div class="results__inner">
+
+        <!-- Заголовок — вліво, як у макеті -->
+        <div class="results__heading">
+          <h2 class="results__title" id="results-title">В результате работы вы:</h2>
+          <img loading="lazy" class="results__underline" src="assets/Vector_23.png" alt="" aria-hidden="true" />
+        </div>
+
+        <!-- 5 іконок в ряд -->
+        <div class="results__items">
+
+          <div class="results__item">
+            <img loading="lazy" src="assets/free-icon-font-bullseye-arrow_1.png" alt="" aria-hidden="true" class="results__item-icon" width="64" height="64" />
+            <p class="results__item-text">чётко понимаете свои приоритеты</p>
+          </div>
+
+          <div class="results__item">
+            <img loading="lazy" src="assets/free-icon-font-bullseye-arrow_2.png" alt="" aria-hidden="true" class="results__item-icon" width="64" height="64" />
+            <p class="results__item-text">имеете рабочую систему планирования</p>
+          </div>
+
+          <div class="results__item">
+            <img loading="lazy" src="assets/free-icon-font-bullseye-arrow_3.png" alt="" aria-hidden="true" class="results__item-icon" width="64" height="64" />
+            <p class="results__item-text">формируете новые устойчивые привычки</p>
+          </div>
+
+          <div class="results__item">
+            <img loading="lazy" src="assets/free-icon-font-bullseye-arrow_4.png" alt="" aria-hidden="true" class="results__item-icon" width="64" height="64" />
+            <p class="results__item-text">снижаете уровень хаоса</p>
+          </div>
+
+          <div class="results__item">
+            <img loading="lazy" src="assets/free-icon-font-bullseye-arrow_5.png" alt="" aria-hidden="true" class="results__item-icon" width="64" height="64" />
+            <p class="results__item-text">возвращаете ощущение контроля над временем</p>
+          </div>
+
+        </div>
+
+        <!-- Блок ціни -->
+        <div class="results__price">
+          <span class="results__price-label">Стоимость:</span>
+          <span class="results__price-divider" aria-hidden="true"></span>
+          <span class="results__price-value">120 €</span>
+        </div>
+
+        <p class="results__price-note">Оплата: 100% до старта диагностической сессии</p>
+
+      </div>
+    </section>
+
+    <!-- СЕКЦІЯ: Як записатися -->
+    <section class="booking" aria-labelledby="booking-title">
+
+      <!-- Декоративний blur-еліпс ліворуч -->
+      <div class="booking__ellipse" aria-hidden="true"></div>
+
+      <div class="booking__inner">
+
+        <!-- Заголовок по центру -->
+        <div class="booking__heading">
+          <h2 class="booking__title" id="booking-title">Как записаться:</h2>
+          <img loading="lazy" class="booking__underline" src="assets/Vector_24.png" alt="" aria-hidden="true" />
+        </div>
+
+        <!-- Два стовпці: кроки + фото -->
+        <div class="booking__body">
+
+          <!-- Ліва частина: кроки -->
+          <div class="booking__steps">
+
+            <div class="booking__step booking__step--top">
+              <span class="booking__step-num" aria-hidden="true">1</span>
+              <p class="booking__step-text">Заполнить форму или написать мне в Instagram сразу со своим запросом.</p>
+            </div>
+
+            <div class="booking__step booking__step--mid">
+              <span class="booking__step-num" aria-hidden="true">2</span>
+              <p class="booking__step-text">После анкеты согласуем дату диагностической сессии и я пришлю ссылку на оплату</p>
+            </div>
+
+            <div class="booking__step booking__step--bot">
+              <span class="booking__step-num" aria-hidden="true">3</span>
+              <p class="booking__step-text">После оплаты - получишь подтверждение и начинаем</p>
+            </div>
+
+          </div>
+
+          <!-- Права частина: фото -->
+          <div class="booking__photo-wrap">
+            <img
+              class="booking__photo"
+              src="assets/image_4_9.png"
+              alt="Ноутбук і квіти на столі"
+              width="555"
+              height="516"
+            />
+          </div>
+
+        </div>
+
+        <!-- CTA кнопки -->
+        <div class="booking__cta-group">
+          <a href="#form" class="booking__cta booking__cta--fill">ЗАПОЛНИТЬ ФОРМУ</a>
+          <a href="https://instagram.com" class="booking__cta booking__cta--outline" target="_blank" rel="noopener noreferrer">НАПИСАТЬ В INSTAGRAM</a>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- СЕКЦІЯ: Відгуки клієнтів -->
+  <section class="reviews" aria-labelledby="reviews-title">
+    <div class="reviews__inner">
+
+      <div class="reviews__heading">
+        <h2 class="reviews__title" id="reviews-title">Отзывы клиентов</h2>
+        <img loading="lazy" class="reviews__underline" src="assets/Vector_25.png" alt="" aria-hidden="true" />
+      </div>
+
+      <!-- Desktop: стопка карток -->
+      <div class="reviews__stack" role="region" aria-label="Відгуки клієнтів" id="reviews-stack">
+        <article class="reviews__card reviews__card--active" data-index="0" tabindex="0" aria-label="Відгук 1">
+          <img loading="lazy" src="assets/review_2.webp" alt="Відгук клієнта 1" class="reviews__card-img" draggable="false" />
+        </article>
+        <article class="reviews__card reviews__card--back reviews__card--back-1" data-index="1" tabindex="0" aria-label="Відгук 2" role="button">
+          <img loading="lazy" src="assets/review_3.webp" alt="Відгук клієнта 2" class="reviews__card-img" draggable="false" />
+        </article>
+        <article class="reviews__card reviews__card--active reviews__card--back-2" data-index="2" tabindex="0" aria-label="Відгук 3" role="button">
+          <img loading="lazy" src="assets/review_1.webp" alt="Відгук клієнта 3" class="reviews__card-img" draggable="false" />
+        </article>
+        <article class="reviews__card reviews__card--back reviews__card--back-2" data-index="3" tabindex="0" aria-label="Відгук 3" role="button">
+          <img loading="lazy" src="assets/review_4.webp" alt="Відгук клієнта 4" class="reviews__card-img" draggable="false" />
+        </article>
+      </div>
+
+      <!-- Mobile: слайдер -->
+      <div class="reviews__slider" role="region" aria-label="Слайдер відгуків">
+        <div class="reviews__slider-track-wrap">
+          <div class="reviews__slider-track" id="slider-track">
+            <div class="reviews__slide"><img loading="lazy" src="assets/review_1.webp" alt="Відгук клієнта 1" /></div>
+            <div class="reviews__slide"><img loading="lazy" src="assets/review_2.webp" alt="Відгук клієнта 2" /></div>
+            <div class="reviews__slide"><img loading="lazy" src="assets/review_3.webp" alt="Відгук клієнта 3" /></div>
+            <div class="reviews__slide"><img loading="lazy" src="assets/review_4.webp" alt="Відгук клієнта 4" /></div>
+          </div>
+        </div>
+        <div class="reviews__dots" role="tablist" aria-label="Навігація слайдера">
+          <button class="reviews__dot reviews__dot--active" role="tab" aria-selected="true"  aria-label="Відгук 1"></button>
+          <button class="reviews__dot"                     role="tab" aria-selected="false" aria-label="Відгук 2"></button>
+          <button class="reviews__dot"                     role="tab" aria-selected="false" aria-label="Відгук 3"></button>
+          <button class="reviews__dot"                     role="tab" aria-selected="false" aria-label="Відгук4"></button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- СЕКЦІЯ: Контактна форма -->
+  <section class="contact" id="form" aria-labelledby="contact-desc">
+    <div class="contact__inner">
+
+      <div class="contact__left">
+        <p class="contact__desc" id="contact-desc">Заполните форму, и я свяжусь с вами, чтобы договориться об удобном времени и обсудить детали</p>
+        <div class="contact__ellipse" aria-hidden="true"></div>
+      </div>
+
+      <div class="contact__form-wrap">
+        <form class="contact__form" novalidate>
+
+          <div class="contact__field">
+            <input class="contact__input" type="text" id="contact-name" name="name" placeholder=" " autocomplete="name" required />
+            <label for="contact-name" class="contact__label">NAME</label>
+          </div>
+
+          <div class="contact__field">
+            <input class="contact__input" type="text" id="contact-instagram" name="instagram" placeholder=" " />
+            <label for="contact-instagram" class="contact__label">INSTAGRAM</label>
+          </div>
+
+          <div class="contact__field">
+            <input class="contact__input" type="email" id="contact-email" name="email" placeholder=" " autocomplete="email" required />
+            <label for="contact-email" class="contact__label">EMAIL</label>
+          </div>
+
+          <div class="contact__field">
+            <textarea class="contact__input contact__input--textarea" id="contact-comment" name="comment" placeholder=" " rows="4"></textarea>
+            <label for="contact-comment" class="contact__label">COMMENT...</label>
+          </div>
+
+          <button type="submit" class="contact__submit">оставить запрос</button>
+
+          <p class="contact__privacy">Нажимая на кнопку, вы даете согласие на обработку персональных данных и соглашаетесь c политикой конфиденциальности</p>
+
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ФУТЕР -->
+  <footer class="footer">
+    <div class="footer__inner">
+
+      <div class="footer__top">
+        <span class="footer__name">Новохатняя Александра</span>
+        <nav class="footer__nav" aria-label="Навігація у футері">
+          <a href="#about"      class="footer__nav-link">обо мне</a>
+          <a href="#mentorship" class="footer__nav-link">менторство</a>
+          <a href="#coaching"   class="footer__nav-link">коучинг</a>
+        </nav>
+      </div>
+
+      <div class="footer__socials">
+        <a href="https://instagram.com" class="footer__social-link" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+          <img src="assets/Social_Icons1.png" alt="Instagram" class="footer__social-icon" />
+        </a>
+        <a href="https://t.me" class="footer__social-link" aria-label="Telegram" target="_blank" rel="noopener noreferrer">
+          <img src="assets/Social_Icons2.png" alt="Telegram" class="footer__social-icon" />
+        </a>
+      </div>
+
+    </div>
+  </footer>
+
+  <script>
+    // ============================================================
+    // BURGER MENU
+    // ============================================================
+    (function () {
+      var burgerBtn  = document.getElementById('burger-btn');
+      var mobileMenu = document.getElementById('mobile-menu');
+      if (!burgerBtn || !mobileMenu) return;
+
+      burgerBtn.addEventListener('click', function () {
+        var isOpen = burgerBtn.getAttribute('aria-expanded') === 'true';
+        burgerBtn.setAttribute('aria-expanded', String(!isOpen));
+        mobileMenu.setAttribute('aria-hidden', String(isOpen));
+        burgerBtn.classList.toggle('nav__burger--open', !isOpen);
+        mobileMenu.classList.toggle('nav__dropdown--open', !isOpen);
+      });
+
+      mobileMenu.querySelectorAll('.nav__dropdown-link').forEach(function (link) {
+        link.addEventListener('click', function () {
+          burgerBtn.setAttribute('aria-expanded', 'false');
+          mobileMenu.setAttribute('aria-hidden', 'true');
+          burgerBtn.classList.remove('nav__burger--open');
+          mobileMenu.classList.remove('nav__dropdown--open');
+        });
+      });
+
+      document.addEventListener('click', function (e) {
+        if (!mobileMenu.contains(e.target) && !burgerBtn.contains(e.target)) {
+          burgerBtn.setAttribute('aria-expanded', 'false');
+          mobileMenu.setAttribute('aria-hidden', 'true');
+          burgerBtn.classList.remove('nav__burger--open');
+          mobileMenu.classList.remove('nav__dropdown--open');
+        }
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+          burgerBtn.setAttribute('aria-expanded', 'false');
+          mobileMenu.setAttribute('aria-hidden', 'true');
+          burgerBtn.classList.remove('nav__burger--open');
+          mobileMenu.classList.remove('nav__dropdown--open');
+        }
+      });
+    })();
+
+    // ============================================================
+    // REVIEWS STACK — desktop
+    // ============================================================
+    var stack = document.getElementById('reviews-stack');
+    if (stack) {
+      var cards = Array.from(stack.querySelectorAll('.reviews__card'));
+
+      function activateCard(targetCard) {
+        cards.forEach(function(c) {
+          c.classList.remove('reviews__card--active');
+          c.classList.add('reviews__card--back');
+          c.setAttribute('role', 'button');
+          c.setAttribute('tabindex', '0');
+        });
+        targetCard.classList.remove('reviews__card--back');
+        targetCard.classList.add('reviews__card--active');
+        targetCard.removeAttribute('role');
+        targetCard.setAttribute('tabindex', '0');
+      }
+
+      cards.forEach(function(card) {
+        card.addEventListener('click', function() {
+          if (!card.classList.contains('reviews__card--active')) activateCard(card);
+        });
+        card.addEventListener('keydown', function(e) {
+          if ((e.key === 'Enter' || e.key === ' ') && !card.classList.contains('reviews__card--active')) {
+            e.preventDefault();
+            activateCard(card);
+          }
+        });
+      });
+    }
+
+    // ============================================================
+    // REVIEWS SLIDER — mobile (infinite loop)
+    // ============================================================
+    (function () {
+      var track = document.getElementById('slider-track');
+      var dots  = Array.from(document.querySelectorAll('.reviews__dot'));
+      if (!track || !dots.length) return;
+
+      var origSlides = Array.from(track.querySelectorAll('.reviews__slide'));
+      var total = origSlides.length;
+
+      // Клонуємо перший та останній для нескінченної петлі
+      var firstClone = origSlides[0].cloneNode(true);
+      var lastClone  = origSlides[total - 1].cloneNode(true);
+      firstClone.setAttribute('aria-hidden', 'true');
+      lastClone.setAttribute('aria-hidden', 'true');
+
+      track.appendChild(firstClone);       // після останнього
+      track.insertBefore(lastClone, origSlides[0]); // перед першим
+
+      // Всі слайди після вставки клонів
+      var allSlides = Array.from(track.querySelectorAll('.reviews__slide'));
+
+      // Починаємо на позиції 1 (пропускаємо lastClone)
+      var current = 1;
+
+      track.style.display = 'flex';
+      // Без анімації — одразу ставимо на перший реальний слайд
+      track.style.transition = 'none';
+      track.style.transform  = 'translateX(-' + (current * 100) + '%)';
+
+      function updateDots(realIndex) {
+        dots.forEach(function (d, i) {
+          var active = i === realIndex;
+          d.classList.toggle('reviews__dot--active', active);
+          d.setAttribute('aria-selected', String(active));
+        });
+      }
+
+      function goTo(index, animate) {
+        if (animate === false) {
+          track.style.transition = 'none';
+        } else {
+          track.style.transition = 'transform 0.4s ease';
+        }
+        current = index;
+        track.style.transform = 'translateX(-' + (current * 100) + '%)';
+      }
+
+      // Після перехідної анімації — перестрибуємо на реальний слайд якщо на клоні
+      track.addEventListener('transitionend', function () {
+        if (current === 0) {
+          // На клоні останнього — стрибаємо на реальний останній
+          goTo(total, false);
+        } else if (current === total + 1) {
+          // На клоні першого — стрибаємо на реальний перший
+          goTo(1, false);
+        }
+        // Оновлюємо dots: real index = current - 1
+        var realIndex = (current - 1 + total) % total;
+        updateDots(realIndex);
+      });
+
+      // Dots
+      dots.forEach(function (dot, i) {
+        dot.addEventListener('click', function () {
+          goTo(i + 1, true);
+          updateDots(i);
+        });
+      });
+
+      // Swipe
+      var touchStartX = 0;
+      track.addEventListener('touchstart', function (e) {
+        touchStartX = e.touches[0].clientX;
+      }, { passive: true });
+
+      track.addEventListener('touchend', function (e) {
+        var diff = touchStartX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 40) {
+          goTo(current + (diff > 0 ? 1 : -1), true);
+        }
+      });
+
+      // Ініціалізація dots
+      updateDots(0);
+    })();
+
+    // ============================================================
+    // LANGUAGE SWITCHER
+    // ============================================================
+    const langBtn      = document.getElementById('lang-btn');
+    const langDropdown = document.getElementById('lang-dropdown');
+    const langCurrent  = document.getElementById('lang-current');
+    const langNav      = document.getElementById('nav-lang');
+
+    if (langBtn && langDropdown) {
+      langBtn.addEventListener('click', e => {
+        e.stopPropagation();
+        const isOpen = langDropdown.classList.contains('nav__lang-dropdown--open');
+        langDropdown.classList.toggle('nav__lang-dropdown--open', !isOpen);
+        langNav.classList.toggle('nav__lang--open', !isOpen);
+        langBtn.setAttribute('aria-expanded', String(!isOpen));
+        langDropdown.setAttribute('aria-hidden', String(isOpen));
+      });
+
+      langDropdown.querySelectorAll('.nav__lang-option').forEach(option => {
+        option.addEventListener('click', () => {
+          langDropdown.querySelectorAll('.nav__lang-option').forEach(o => {
+            o.classList.remove('nav__lang-option--active');
+            o.setAttribute('aria-selected', 'false');
+          });
+          option.classList.add('nav__lang-option--active');
+          option.setAttribute('aria-selected', 'true');
+          langCurrent.textContent = option.dataset.lang;
+          langDropdown.classList.remove('nav__lang-dropdown--open');
+          langNav.classList.remove('nav__lang--open');
+          langBtn.setAttribute('aria-expanded', 'false');
+          langDropdown.setAttribute('aria-hidden', 'true');
+        });
+      });
+
+      document.addEventListener('click', e => {
+        if (!langNav.contains(e.target)) {
+          langDropdown.classList.remove('nav__lang-dropdown--open');
+          langNav.classList.remove('nav__lang--open');
+          langBtn.setAttribute('aria-expanded', 'false');
+          langDropdown.setAttribute('aria-hidden', 'true');
+        }
+      });
+    }
+
+    // ============================================================
+    // LANGUAGE SWITCHER — mobile
+    // ============================================================
+    const langBtnMobile      = document.getElementById('lang-btn-mobile');
+    const langDropdownMobile = document.getElementById('lang-dropdown-mobile');
+    const langCurrentMobile  = document.getElementById('lang-current-mobile');
+    const langNavMobile      = document.getElementById('nav-lang-mobile');
+
+    if (langBtnMobile && langDropdownMobile) {
+      langBtnMobile.addEventListener('click', e => {
+        e.stopPropagation();
+        const isOpen = langDropdownMobile.classList.contains('nav__lang-dropdown--open');
+        langDropdownMobile.classList.toggle('nav__lang-dropdown--open', !isOpen);
+        langNavMobile.classList.toggle('nav__lang--open', !isOpen);
+        langBtnMobile.setAttribute('aria-expanded', String(!isOpen));
+        langDropdownMobile.setAttribute('aria-hidden', String(isOpen));
+      });
+
+      langDropdownMobile.querySelectorAll('.nav__lang-option').forEach(option => {
+        option.addEventListener('click', () => {
+          langDropdownMobile.querySelectorAll('.nav__lang-option').forEach(o => {
+            o.classList.remove('nav__lang-option--active');
+            o.setAttribute('aria-selected', 'false');
+          });
+          option.classList.add('nav__lang-option--active');
+          option.setAttribute('aria-selected', 'true');
+          langCurrentMobile.textContent = option.dataset.lang;
+          langDropdownMobile.classList.remove('nav__lang-dropdown--open');
+          langNavMobile.classList.remove('nav__lang--open');
+          langBtnMobile.setAttribute('aria-expanded', 'false');
+          langDropdownMobile.setAttribute('aria-hidden', 'true');
+        });
+      });
+
+      document.addEventListener('click', e => {
+        if (!langNavMobile.contains(e.target)) {
+          langDropdownMobile.classList.remove('nav__lang-dropdown--open');
+          langNavMobile.classList.remove('nav__lang--open');
+          langBtnMobile.setAttribute('aria-expanded', 'false');
+          langDropdownMobile.setAttribute('aria-hidden', 'true');
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>
