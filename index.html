@@ -693,186 +693,134 @@
       });
     })();
 
-    // Reviews slider — mobile/tablet (infinite cyclic)
+    // Reviews slider — mobile/tablet
     (function () {
       const track = document.getElementById('reviews-slider-track');
       const dots  = Array.from(document.querySelectorAll('.reviews__dot'));
       if (!track || !dots.length) return;
 
-      const origSlides = Array.from(track.querySelectorAll('.reviews__slide'));
-      const total = origSlides.length;
+      const slides = Array.from(track.querySelectorAll('.reviews__slide'));
+      const total  = slides.length;
       if (total < 2) return;
 
-      // Clone last slide to prepend, clone first slide to append
-      const cloneFirst = origSlides[0].cloneNode(true);
-      const cloneLast  = origSlides[total - 1].cloneNode(true);
-      track.appendChild(cloneFirst);
-      track.insertBefore(cloneLast, origSlides[0]);
+      let current = 0;
+      let isSwiping = false;
 
-      // Now track has: [cloneLast, slide0, slide1, ..., slideN-1, cloneFirst]
-      // Real slides start at index 1
-      let current = 1;
-      let isTransitioning = false;
-
-      function slideW() {
-        return track.parentElement.offsetWidth;
-      }
-
-      function setPos(idx, animate) {
-        track.style.transition = animate ? 'transform 0.35s ease' : 'none';
-        track.style.transform  = `translateX(-${idx * slideW()}px)`;
-      }
-
-      function updateDots(realIdx) {
+      function goTo(idx) {
+        current = idx;
+        const w = track.parentElement.offsetWidth;
+        track.scrollTo({ left: current * w, behavior: 'smooth' });
         dots.forEach((d, i) => {
-          d.classList.toggle('reviews__dot--active', i === realIdx);
-          d.setAttribute('aria-selected', String(i === realIdx));
+          d.classList.toggle('reviews__dot--active', i === current);
+          d.setAttribute('aria-selected', String(i === current));
         });
       }
 
-      // Init without animation
-      setPos(current, false);
-      updateDots(0);
-
-      track.addEventListener('transitionend', () => {
-        if (current === total + 1) {
-          current = 1;
-          setPos(current, false);
-        } else if (current === 0) {
-          current = total;
-          setPos(current, false);
+      // Sync dots when user swipes natively
+      track.addEventListener('scroll', () => {
+        const w = track.parentElement.offsetWidth;
+        if (!w) return;
+        const idx = Math.round(track.scrollLeft / w);
+        if (idx !== current) {
+          current = idx;
+          dots.forEach((d, i) => {
+            d.classList.toggle('reviews__dot--active', i === current);
+            d.setAttribute('aria-selected', String(i === current));
+          });
         }
-        isTransitioning = false;
-      });
+      }, { passive: true });
 
-      function goTo(realIdx) {
-        current = realIdx + 1;
-        setPos(current, true);
-        updateDots(realIdx);
-      }
+      dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
 
-      function goBy(delta) {
-        if (isTransitioning) return;
-        isTransitioning = true;
-        setTimeout(() => { isTransitioning = false; }, 500);
-        current = current + delta;
-        track.style.transition = 'transform 0.35s ease';
-        track.style.transform  = `translateX(-${current * slideW()}px)`;
-        let logical = current - 1;
-        if (logical < 0) logical = total - 1;
-        if (logical >= total) logical = 0;
-        updateDots(logical);
-      }
-
-      dots.forEach((dot, i) => dot.addEventListener('click', () => {
-        if (isTransitioning) return;
-        isTransitioning = true;
-        setTimeout(() => { isTransitioning = false; }, 500);
-        goTo(i);
-      }));
-
-      window.addEventListener('resize', () => setPos(current, false));
-
-      let startX = 0;
-      let startY = 0;
+      // Swipe
+      let startX = 0, startY = 0;
       track.addEventListener('touchstart', e => {
         startX = e.touches[0].clientX;
         startY = e.touches[0].clientY;
+        isSwiping = false;
+      }, { passive: true });
+      track.addEventListener('touchmove', e => {
+        if (!isSwiping) {
+          const dx = Math.abs(e.touches[0].clientX - startX);
+          const dy = Math.abs(e.touches[0].clientY - startY);
+          isSwiping = dx > dy;
+        }
       }, { passive: true });
       track.addEventListener('touchend', e => {
+        if (!isSwiping) return;
         const diffX = startX - e.changedTouches[0].clientX;
-        const diffY = startY - e.changedTouches[0].clientY;
-        if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) goBy(diffX > 0 ? 1 : -1);
+        if (Math.abs(diffX) > 50) {
+          const next = diffX > 0
+            ? Math.min(current + 1, total - 1)
+            : Math.max(current - 1, 0);
+          goTo(next);
+        }
       });
     })();
 
-    // Certs slider — mobile/tablet (infinite cyclic)
+    // Certs slider — mobile/tablet
     (function () {
       const track = document.getElementById('certs-slider-track');
       const dotsContainer = document.querySelector('.certs__dots');
-      const dots  = dotsContainer ? Array.from(dotsContainer.querySelectorAll('.certs__dot')) : [];
+      const dots = dotsContainer ? Array.from(dotsContainer.querySelectorAll('.certs__dot')) : [];
       if (!track || !dots.length) return;
 
-      const origSlides = Array.from(track.querySelectorAll('.certs__slide'));
-      const total = origSlides.length;
+      const slides = Array.from(track.querySelectorAll('.certs__slide'));
+      const total  = slides.length;
       if (total < 2) return;
 
-      const cloneFirst = origSlides[0].cloneNode(true);
-      const cloneLast  = origSlides[total - 1].cloneNode(true);
-      track.appendChild(cloneFirst);
-      track.insertBefore(cloneLast, origSlides[0]);
+      let current = 0;
+      let isSwiping = false;
 
-      let current = 1;
-      let isTransitioning = false;
-
-      function slideW() {
-        return track.parentElement.offsetWidth;
-      }
-
-      function setPos(idx, animate) {
-        track.style.transition = animate ? 'transform 0.35s ease' : 'none';
-        track.style.transform  = `translateX(-${idx * slideW()}px)`;
-      }
-
-      function updateDots(realIdx) {
+      function goTo(idx) {
+        current = idx;
+        const w = track.parentElement.offsetWidth;
+        track.scrollTo({ left: current * w, behavior: 'smooth' });
         dots.forEach((d, i) => {
-          d.classList.toggle('certs__dot--active', i === realIdx);
-          d.setAttribute('aria-selected', String(i === realIdx));
+          d.classList.toggle('certs__dot--active', i === current);
+          d.setAttribute('aria-selected', String(i === current));
         });
       }
 
-      setPos(current, false);
-      updateDots(0);
-
-      track.addEventListener('transitionend', () => {
-        if (current === total + 1) {
-          current = 1;
-          setPos(current, false);
-        } else if (current === 0) {
-          current = total;
-          setPos(current, false);
+      // Sync dots when user swipes natively
+      track.addEventListener('scroll', () => {
+        const w = track.parentElement.offsetWidth;
+        if (!w) return;
+        const idx = Math.round(track.scrollLeft / w);
+        if (idx !== current) {
+          current = idx;
+          dots.forEach((d, i) => {
+            d.classList.toggle('certs__dot--active', i === current);
+            d.setAttribute('aria-selected', String(i === current));
+          });
         }
-        isTransitioning = false;
-      });
+      }, { passive: true });
 
-      function goTo(realIdx) {
-        current = realIdx + 1;
-        setPos(current, true);
-        updateDots(realIdx);
-      }
+      dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
 
-      function goBy(delta) {
-        if (isTransitioning) return;
-        isTransitioning = true;
-        setTimeout(() => { isTransitioning = false; }, 500);
-        current = current + delta;
-        track.style.transition = 'transform 0.35s ease';
-        track.style.transform  = `translateX(-${current * slideW()}px)`;
-        let logical = current - 1;
-        if (logical < 0) logical = total - 1;
-        if (logical >= total) logical = 0;
-        updateDots(logical);
-      }
-
-      dots.forEach((dot, i) => dot.addEventListener('click', () => {
-        if (isTransitioning) return;
-        isTransitioning = true;
-        setTimeout(() => { isTransitioning = false; }, 500);
-        goTo(i);
-      }));
-
-      window.addEventListener('resize', () => setPos(current, false));
-
-      let startX = 0;
-      let startY = 0;
+      // Swipe
+      let startX = 0, startY = 0;
       track.addEventListener('touchstart', e => {
         startX = e.touches[0].clientX;
         startY = e.touches[0].clientY;
+        isSwiping = false;
+      }, { passive: true });
+      track.addEventListener('touchmove', e => {
+        if (!isSwiping) {
+          const dx = Math.abs(e.touches[0].clientX - startX);
+          const dy = Math.abs(e.touches[0].clientY - startY);
+          isSwiping = dx > dy;
+        }
       }, { passive: true });
       track.addEventListener('touchend', e => {
+        if (!isSwiping) return;
         const diffX = startX - e.changedTouches[0].clientX;
-        const diffY = startY - e.changedTouches[0].clientY;
-        if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) goBy(diffX > 0 ? 1 : -1);
+        if (Math.abs(diffX) > 50) {
+          const next = diffX > 0
+            ? Math.min(current + 1, total - 1)
+            : Math.max(current - 1, 0);
+          goTo(next);
+        }
       });
     })();
 
