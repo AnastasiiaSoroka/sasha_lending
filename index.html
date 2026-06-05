@@ -752,6 +752,7 @@
       function goBy(delta) {
         if (isTransitioning) return;
         isTransitioning = true;
+        setTimeout(() => { isTransitioning = false; }, 500);
         const newPos = current + delta;
         track.style.transition = 'transform 0.35s ease';
         track.style.transform  = `translateX(-${newPos * 100}%)`;
@@ -766,21 +767,28 @@
       dots.forEach((dot, i) => dot.addEventListener('click', () => {
         if (isTransitioning) return;
         isTransitioning = true;
+        setTimeout(() => { isTransitioning = false; }, 500);
         goTo(i);
       }));
 
       let startX = 0;
-      track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+      let startY = 0;
+      track.addEventListener('touchstart', e => {
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+      }, { passive: true });
       track.addEventListener('touchend',   e => {
-        const diff = startX - e.changedTouches[0].clientX;
-        if (Math.abs(diff) > 40) goBy(diff > 0 ? 1 : -1);
+        const diffX = startX - e.changedTouches[0].clientX;
+        const diffY = startY - e.changedTouches[0].clientY;
+        if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) goBy(diffX > 0 ? 1 : -1);
       });
     })();
 
     // Certs slider — mobile/tablet (infinite cyclic)
     (function () {
       const track = document.getElementById('certs-slider-track');
-      const dots  = Array.from(document.querySelectorAll('.certs__dot'));
+      const dotsContainer = document.querySelector('.certs__dots');
+      const dots  = dotsContainer ? Array.from(dotsContainer.querySelectorAll('.certs__dot')) : [];
       if (!track || !dots.length) return;
 
       const origSlides = Array.from(track.querySelectorAll('.certs__slide'));
@@ -830,6 +838,7 @@
       function goBy(delta) {
         if (isTransitioning) return;
         isTransitioning = true;
+        setTimeout(() => { isTransitioning = false; }, 500);
         const newPos = current + delta;
         track.style.transition = 'transform 0.35s ease';
         track.style.transform  = `translateX(-${newPos * 100}%)`;
@@ -843,14 +852,20 @@
       dots.forEach((dot, i) => dot.addEventListener('click', () => {
         if (isTransitioning) return;
         isTransitioning = true;
+        setTimeout(() => { isTransitioning = false; }, 500);
         goTo(i);
       }));
 
       let startX = 0;
-      track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+      let startY = 0;
+      track.addEventListener('touchstart', e => {
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+      }, { passive: true });
       track.addEventListener('touchend',   e => {
-        const diff = startX - e.changedTouches[0].clientX;
-        if (Math.abs(diff) > 40) goBy(diff > 0 ? 1 : -1);
+        const diffX = startX - e.changedTouches[0].clientX;
+        const diffY = startY - e.changedTouches[0].clientY;
+        if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) goBy(diffX > 0 ? 1 : -1);
       });
     })();
 

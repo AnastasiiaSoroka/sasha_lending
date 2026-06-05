@@ -1186,6 +1186,7 @@ ul[role="list"] {
   will-change: transform;
   transition: transform 0.35s ease;
   width: 100%;
+  touch-action: pan-y;
 }
 
 .reviews__slide {
@@ -1333,10 +1334,13 @@ ul[role="list"] {
   display: flex;
   will-change: transform;
   transition: transform 0.35s ease;
+  width: 100%;
+  touch-action: pan-y;
 }
 
 .certs__slide {
-  min-width: 100%;
+  flex: 0 0 100%;
+  width: 100%;
   flex-shrink: 0;
   box-sizing: border-box;
   display: flex;
