@@ -42,7 +42,7 @@
         <!-- Перемикач мови -->
         <div class="nav__lang" id="nav-lang">
           <button class="nav__lang-btn" id="lang-btn" aria-haspopup="listbox" aria-expanded="false" aria-label="Вибір мови">
-            <span class="nav__lang-current" id="lang-current">UA</span>
+            <span class="nav__lang-current" id="lang-current">RU</span>
             <svg class="nav__lang-arrow" width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true">
               <path d="M1 1L5 5L9 1" stroke="#2B2B2B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
@@ -67,7 +67,12 @@
         <!-- Instagram + мова — праворуч -->
         <div class="nav__mobile-right">
           <a href="https://instagram.com" class="nav__social nav__social--mobile" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
-            <img src="assets/Social_Icons.png" alt="Instagram" class="nav__social-icon" width="37" height="37" />
+            <!-- <img src="assets/Social_Icons.png" alt="Instagram" class="nav__social-icon" width="37" height="37" /> -->
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+            <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.8"/>
+            <circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/>
+            <circle cx="17.5" cy="6.5" r="1" fill="currentColor"/>
+          </svg>
           </a>
 
           <div class="nav__lang nav__lang--mobile" id="nav-lang-mobile">
@@ -599,90 +604,156 @@
     }
 
     // ============================================================
-    // REVIEWS SLIDER — mobile (infinite loop)
+    // REVIEWS SLIDER — mobile (infinite loop, Safari-safe)
     // ============================================================
     (function () {
+      var wrap  = document.querySelector('.reviews__slider-track-wrap');
       var track = document.getElementById('slider-track');
       var dots  = Array.from(document.querySelectorAll('.reviews__dot'));
-      if (!track || !dots.length) return;
+      if (!track || !wrap || !dots.length) return;
 
       var origSlides = Array.from(track.querySelectorAll('.reviews__slide'));
-      var total = origSlides.length;
+      var total      = origSlides.length;
+      var current    = 1;
+      var isAnimating = false;
 
-      // Клонуємо перший та останній для нескінченної петлі
+      // ---- Клони для нескінченної петлі ----
       var firstClone = origSlides[0].cloneNode(true);
       var lastClone  = origSlides[total - 1].cloneNode(true);
       firstClone.setAttribute('aria-hidden', 'true');
-      lastClone.setAttribute('aria-hidden', 'true');
+      lastClone.setAttribute('aria-hidden',  'true');
+      track.appendChild(firstClone);
+      track.insertBefore(lastClone, origSlides[0]);
+      // Тепер: [lastClone, slide1, slide2, ..., slideN, firstClone]
 
-      track.appendChild(firstClone);       // після останнього
-      track.insertBefore(lastClone, origSlides[0]); // перед першим
+      // ---- Позиціонування в px (надійно в Safari) ----
+      function getSlideWidth() {
+        return wrap.offsetWidth || window.innerWidth;
+      }
 
-      // Всі слайди після вставки клонів
-      var allSlides = Array.from(track.querySelectorAll('.reviews__slide'));
+      function setPos(index, withTransition) {
+        var px = -(index * getSlideWidth());
+        if (withTransition) {
+          track.style.webkitTransition = '-webkit-transform 0.38s ease';
+          track.style.transition       = 'transform 0.38s ease';
+        } else {
+          track.style.webkitTransition = 'none';
+          track.style.transition       = 'none';
+        }
+        track.style.webkitTransform = 'translateX(' + px + 'px)';
+        track.style.transform       = 'translateX(' + px + 'px)';
+      }
 
-      // Починаємо на позиції 1 (пропускаємо lastClone)
-      var current = 1;
+      // ---- Миттєвий стрибок (Safari: два rAF щоб transition:none застосувався) ----
+      function jumpTo(index) {
+        current = index;
+        track.style.webkitTransition = 'none';
+        track.style.transition       = 'none';
+        // Перший rAF — браузер бачить none
+        requestAnimationFrame(function () {
+          track.style.webkitTransform = 'translateX(' + (-(index * getSlideWidth())) + 'px)';
+          track.style.transform       = 'translateX(' + (-(index * getSlideWidth())) + 'px)';
+          // Другий rAF — transition знову дозволений
+          requestAnimationFrame(function () {
+            isAnimating = false;
+          });
+        });
+      }
 
-      track.style.display = 'flex';
-      // Без анімації — одразу ставимо на перший реальний слайд
-      track.style.transition = 'none';
-      track.style.transform  = 'translateX(-' + (current * 100) + '%)';
+      // ---- Анімований перехід ----
+      function goTo(index) {
+        if (isAnimating) return;
+        isAnimating = true;
+        current = index;
+        setPos(index, true);
+      }
 
+      // ---- Dots ----
       function updateDots(realIndex) {
         dots.forEach(function (d, i) {
-          var active = i === realIndex;
-          d.classList.toggle('reviews__dot--active', active);
-          d.setAttribute('aria-selected', String(active));
+          var on = (i === realIndex);
+          d.classList.toggle('reviews__dot--active', on);
+          d.setAttribute('aria-selected', String(on));
         });
       }
 
-      function goTo(index, animate) {
-        if (animate === false) {
-          track.style.transition = 'none';
+      // ---- transitionend + webkitTransitionEnd (Safari) ----
+      function onTransitionEnd() {
+        var realIndex;
+        if (current === 0) {
+          // Клон останнього → стрибаємо на реальний останній
+          realIndex = total - 1;
+          jumpTo(total);
+        } else if (current === total + 1) {
+          // Клон першого → стрибаємо на реальний перший
+          realIndex = 0;
+          jumpTo(1);
         } else {
-          track.style.transition = 'transform 0.4s ease';
+          realIndex = current - 1;
+          isAnimating = false;
         }
-        current = index;
-        track.style.transform = 'translateX(-' + (current * 100) + '%)';
+        updateDots(realIndex);
       }
 
-      // Після перехідної анімації — перестрибуємо на реальний слайд якщо на клоні
-      track.addEventListener('transitionend', function () {
-        if (current === 0) {
-          // На клоні останнього — стрибаємо на реальний останній
-          goTo(total, false);
-        } else if (current === total + 1) {
-          // На клоні першого — стрибаємо на реальний перший
-          goTo(1, false);
-        }
-        // Оновлюємо dots: real index = current - 1
-        var realIndex = (current - 1 + total) % total;
-        updateDots(realIndex);
-      });
+      track.addEventListener('transitionend',       onTransitionEnd);
+      track.addEventListener('webkitTransitionEnd', onTransitionEnd);
 
-      // Dots
+      // ---- Dots click ----
       dots.forEach(function (dot, i) {
         dot.addEventListener('click', function () {
-          goTo(i + 1, true);
+          if (isAnimating) return;
           updateDots(i);
+          goTo(i + 1);
         });
       });
 
-      // Swipe
+      // ---- Touch / Swipe ----
       var touchStartX = 0;
+      var touchStartY = 0;
+      var swipeDir    = null; // 'h' | 'v' | null
+
       track.addEventListener('touchstart', function (e) {
+        if (isAnimating) return;
         touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+        swipeDir    = null;
       }, { passive: true });
 
+      track.addEventListener('touchmove', function (e) {
+        if (swipeDir === 'v') return;
+        var dx = e.touches[0].clientX - touchStartX;
+        var dy = e.touches[0].clientY - touchStartY;
+        if (swipeDir === null) {
+          // Визначаємо напрямок після мінімального руху
+          if (Math.abs(dx) > 5 || Math.abs(dy) > 5) {
+            swipeDir = (Math.abs(dx) >= Math.abs(dy)) ? 'h' : 'v';
+          }
+        }
+        if (swipeDir === 'h') {
+          // Блокуємо вертикальний скрол сторінки під час горизонтального свайпу
+          e.preventDefault();
+        }
+      }, { passive: false });
+
       track.addEventListener('touchend', function (e) {
+        if (swipeDir !== 'h') return;
         var diff = touchStartX - e.changedTouches[0].clientX;
         if (Math.abs(diff) > 40) {
-          goTo(current + (diff > 0 ? 1 : -1), true);
+          goTo(current + (diff > 0 ? 1 : -1));
         }
       });
 
-      // Ініціалізація dots
+      // ---- Resize — оновлюємо позицію без анімації ----
+      var resizeTimer;
+      window.addEventListener('resize', function () {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function () {
+          setPos(current, false);
+        }, 100);
+      });
+
+      // ---- Ініціалізація ----
+      jumpTo(1);
       updateDots(0);
     })();
 
