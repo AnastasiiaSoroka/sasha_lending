@@ -427,17 +427,27 @@
         <img loading="lazy" class="certs__underline" src="assets/Vector_24.png" alt="" aria-hidden="true" />
       </div>
 
-      <!-- Desktop: два сертифікати поруч -->
-      <div class="certs__grid">
-        <figure class="certs__item certs__item--shadow">
-          <img loading="lazy" src="assets/certificate_Ethical.webp" alt="Сертифікат ICF — Certificate of Accreditation, Coaching Mastery Academy WPG" />
-        </figure>
-        <figure class="certs__item">
-          <img loading="lazy" src="assets/long-term_contracts.webp" alt="Сертифікат ICF — Certificate of Accreditation, Coaching Mastery Academy WPG" />
-        </figure>
-        <figure class="certs__item">
-          <img loading="lazy" src="assets/Metaphors_and_Transformation Pauses.webp" alt="Сертифікат ICF — Certificate of Accreditation, Coaching Mastery Academy WPG" />
-        </figure>
+      <!-- Desktop/Tablet: слайдер 2-up -->
+      <div class="certs__grid-slider" role="region" aria-label="Слайдер сертифікатів">
+        <button class="certs__grid-arrow certs__grid-arrow--prev" id="certs-grid-prev" aria-label="Попередній сертифікат">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="certs__grid-wrap">
+          <div class="certs__grid-track" id="certs-grid-track">
+            <figure class="certs__grid-slide">
+              <img loading="lazy" src="assets/certificate_Ethical.webp" alt="Сертифікат ICF 1" draggable="false" />
+            </figure>
+            <figure class="certs__grid-slide">
+              <img loading="lazy" src="assets/long-term_contracts.webp" alt="Сертифікат ICF 2" draggable="false" />
+            </figure>
+            <figure class="certs__grid-slide">
+              <img loading="lazy" src="assets/Metaphors_and_Transformation Pauses.webp" alt="Сертифікат ICF 3" draggable="false" />
+            </figure>
+          </div>
+        </div>
+        <button class="certs__grid-arrow certs__grid-arrow--next" id="certs-grid-next" aria-label="Наступний сертифікат">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
       </div>
 
       <!-- Mobile/Tablet: слайдер -->
@@ -712,116 +722,276 @@
     }
 
     // ============================================================
-    // REVIEWS SLIDER — mobile (infinite loop)
+    // UNIVERSAL MOBILE SLIDER FACTORY
+    // Повністю переписана логіка для certs та reviews слайдерів.
+    // Використовує scrollLeft замість transform — надійно працює
+    // в Chrome та Safari на iOS/Android.
+    // Циклічний: після останнього — перший, перед першим — останній.
     // ============================================================
-    const sliderTrack = document.getElementById('slider-track');
-    const dots = document.querySelectorAll('.reviews__dot');
-    if (sliderTrack && dots.length) {
-      const slides = Array.from(sliderTrack.querySelectorAll('.reviews__slide'));
-      const total = slides.length;
+    function initMobileSlider(config) {
+      var wrap      = document.querySelector(config.wrapSelector);
+      var track     = document.getElementById(config.trackId);
+      var dotBtns   = document.querySelectorAll(config.dotSelector);
 
-      // Клонуємо перший та останній слайд для безшовного циклу
-      const firstClone = slides[0].cloneNode(true);
-      const lastClone  = slides[total - 1].cloneNode(true);
-      firstClone.setAttribute('aria-hidden', 'true');
-      lastClone.setAttribute('aria-hidden', 'true');
-      sliderTrack.appendChild(firstClone);       // клон першого — в кінець
-      sliderTrack.insertBefore(lastClone, slides[0]); // клон останнього — на початок
+      if (!wrap || !track || !dotBtns.length) return;
 
-      // Реальних слайдів тепер total+2, стартова позиція = 1 (перший реальний)
-      let current = 1;
-      let isTransitioning = false;
+      var slides    = Array.from(track.querySelectorAll(config.slideSelector));
+      var total     = slides.length;
+      if (total === 0) return;
 
-      sliderTrack.style.display     = 'flex';
-      sliderTrack.style.transition  = 'none';
-      sliderTrack.style.transform   = `translateX(-${current * 100}%)`;
+      var current   = 0;      // реальний індекс (0..total-1)
+      var animating = false;
 
-      function updateDots(index) {
-        // index = позиція серед реальних (0..total-1)
-        const realIndex = ((index - 1) + total) % total;
-        dots.forEach((d, i) => {
-          d.classList.toggle('reviews__dot--active', i === realIndex);
-          d.setAttribute('aria-selected', String(i === realIndex));
+      // ── Стилі треку ──────────────────────────────────────────
+      track.style.display        = 'flex';
+      track.style.flexWrap       = 'nowrap';
+      track.style.willChange     = 'transform';
+      track.style.transition     = 'transform 0.38s cubic-bezier(0.25,0.46,0.45,0.94)';
+
+      // Кожен слайд займає рівно 100% ширини wrap
+      slides.forEach(function(slide) {
+        slide.style.flexShrink = '0';
+        slide.style.width      = '100%';
+        slide.style.boxSizing  = 'border-box';
+      });
+
+      // ── Клони для циклічності ─────────────────────────────────
+      var cloneFirst = slides[0].cloneNode(true);
+      var cloneLast  = slides[total - 1].cloneNode(true);
+      cloneFirst.setAttribute('aria-hidden', 'true');
+      cloneLast.setAttribute('aria-hidden', 'true');
+      cloneFirst.removeAttribute('id');
+      cloneLast.removeAttribute('id');
+
+      // Клон останнього — на початок; клон першого — в кінець
+      track.insertBefore(cloneLast, slides[0]);
+      track.appendChild(cloneFirst);
+      // Тепер у треку: [cloneLast, slide0, slide1, ..., slideN-1, cloneFirst]
+      // Реальні слайди зміщені на 1 (індекс у DOM = current + 1)
+
+      // ── Позиціонування ────────────────────────────────────────
+      function setPosition(domIndex, animate) {
+        track.style.transition = animate
+          ? 'transform 0.38s cubic-bezier(0.25,0.46,0.45,0.94)'
+          : 'none';
+        track.style.transform = 'translateX(-' + (domIndex * 100) + '%)';
+      }
+
+      // Стартуємо на першому реальному (domIndex = 1)
+      setPosition(1, false);
+
+      // ── Dots ─────────────────────────────────────────────────
+      function updateDots(realIndex) {
+        dotBtns.forEach(function(d, i) {
+          var active = (i === realIndex);
+          d.classList.toggle(config.dotActiveClass, active);
+          d.setAttribute('aria-selected', String(active));
         });
       }
+      updateDots(0);
 
-      function goToSlide(index) {
-        if (isTransitioning) return;
-        isTransitioning = true;
-        current = index;
-        sliderTrack.style.transition = 'transform 0.35s ease';
-        sliderTrack.style.transform  = `translateX(-${current * 100}%)`;
-        updateDots(current);
+      // ── Перехід до слайду ─────────────────────────────────────
+      function goTo(realIndex) {
+        // Нормалізуємо в межах 0..total-1
+        realIndex = ((realIndex % total) + total) % total;
+        current   = realIndex;
+        var domIndex = realIndex + 1;   // +1 бо є cloneLast на початку
+        setPosition(domIndex, true);
+        updateDots(realIndex);
       }
 
-      // Після завершення анімації — перестрибуємо на реальний слайд без анімації
-      sliderTrack.addEventListener('transitionend', () => {
-        sliderTrack.style.transition = 'none';
-        if (current === 0) {
-          // Стоїмо на клоні останнього → стрибаємо на реальний останній
-          current = total;
-          sliderTrack.style.transform = `translateX(-${current * 100}%)`;
-        } else if (current === total + 1) {
-          // Стоїмо на клоні першого → стрибаємо на реальний перший
-          current = 1;
-          sliderTrack.style.transform = `translateX(-${current * 100}%)`;
+      // Після завершення анімації — "стрибок" при виході за межі
+      track.addEventListener('transitionend', function() {
+        // Перевіряємо чи ми на клоні
+        var domIndex = current + 1;
+        // Ми вже завжди на правильному реальному слайді після goTo,
+        // але якщо свайп завів на клон — коректуємо
+        var rawDom = getRawDomIndex();
+        if (rawDom === 0) {
+          // Клон останнього → стрибаємо на реальний останній
+          current = total - 1;
+          setPosition(total, false);    // domIndex = total (останній реальний)
+          updateDots(current);
+        } else if (rawDom === total + 1) {
+          // Клон першого → стрибаємо на реальний перший
+          current = 0;
+          setPosition(1, false);
+          updateDots(0);
         }
-        isTransitioning = false;
+        animating = false;
       });
 
-      // Dots
-      dots.forEach((dot, i) => {
-        dot.addEventListener('click', () => goToSlide(i + 1));
+      // Поточний DOM-індекс з transform
+      function getRawDomIndex() {
+        var t = track.style.transform;
+        if (!t) return 1;
+        var match = t.match(/translateX\(-?(\d+(?:\.\d+)?)%\)/);
+        if (!match) return 1;
+        return Math.round(parseFloat(match[1]) / 100);
+      }
+
+      // Dots — клік
+      dotBtns.forEach(function(dot, i) {
+        dot.addEventListener('click', function() {
+          goTo(i);
+        });
       });
 
-      // Початковий стан dots
-      updateDots(current);
+      // ── Touch/swipe ───────────────────────────────────────────
+      var touchStartX = 0;
+      var touchStartY = 0;
+      var touchStartTime = 0;
+      var isDragging = false;
+      var isScrolling = null;   // null = невизначено, true = вертикальний скрол
 
-      // Touch swipe
-      let touchStartX = 0;
-      let touchStartTime = 0;
-      sliderTrack.addEventListener('touchstart', e => {
+      // touchstart — запам'ятовуємо точку дотику
+      wrap.addEventListener('touchstart', function(e) {
+        if (e.touches.length !== 1) return;
         touchStartX    = e.touches[0].clientX;
+        touchStartY    = e.touches[0].clientY;
         touchStartTime = Date.now();
+        isDragging     = true;
+        isScrolling    = null;
+        animating      = false;
+        // Зупиняємо поточну анімацію на поточній позиції
+        var currentTransform = window.getComputedStyle(track).transform;
+        track.style.transition = 'none';
+        track.style.transform  = currentTransform;
       }, { passive: true });
 
-      sliderTrack.addEventListener('touchend', e => {
-        const diff     = touchStartX - e.changedTouches[0].clientX;
-        const duration = Date.now() - touchStartTime;
-        // Свайп: мінімум 40px або швидкий флік (<300ms, >20px)
-        if (Math.abs(diff) > 40 || (duration < 300 && Math.abs(diff) > 20)) {
-          goToSlide(current + (diff > 0 ? 1 : -1));
+      // touchmove — live drag
+      wrap.addEventListener('touchmove', function(e) {
+        if (!isDragging || e.touches.length !== 1) return;
+        var dx = e.touches[0].clientX - touchStartX;
+        var dy = e.touches[0].clientY - touchStartY;
+
+        // Визначаємо напрям лише один раз
+        if (isScrolling === null) {
+          isScrolling = Math.abs(dy) > Math.abs(dx);
         }
-      });
+        if (isScrolling) return;  // вертикальний скрол — не перехоплюємо
+
+        e.preventDefault();       // блокуємо скрол сторінки при горизонтальному свайпі
+
+        // Показуємо drag в реальному часі
+        var domIndex  = current + 1;
+        var baseOffset = domIndex * 100;           // у відсотках
+        var wrapWidth  = wrap.offsetWidth || 1;
+        var dragPct    = (dx / wrapWidth) * 100;
+        track.style.transform = 'translateX(' + (-baseOffset + dragPct) + '%)';
+      }, { passive: false });
+
+      // touchend — вирішуємо куди переходити
+      wrap.addEventListener('touchend', function(e) {
+        if (!isDragging) return;
+        isDragging = false;
+        if (isScrolling) return;  // вертикальний — нічого не робимо
+
+        var dx       = e.changedTouches[0].clientX - touchStartX;
+        var dt       = Date.now() - touchStartTime;
+        var wrapW    = wrap.offsetWidth || 320;
+        var threshold = wrapW * 0.2;   // 20% ширини або флік
+
+        var isFlick  = dt < 300 && Math.abs(dx) > 30;
+        var isDrag   = Math.abs(dx) > threshold;
+
+        if (isFlick || isDrag) {
+          goTo(current + (dx < 0 ? 1 : -1));
+        } else {
+          // Повертаємось назад
+          setPosition(current + 1, true);
+        }
+      }, { passive: true });
+
+      // touchcancel — повертаємось
+      wrap.addEventListener('touchcancel', function() {
+        if (!isDragging) return;
+        isDragging = false;
+        setPosition(current + 1, true);
+      }, { passive: true });
     }
 
-    // ============================================================
-    // CERTS SLIDER — tablet/mobile
-    // ============================================================
-    const certsTrack = document.getElementById('certs-slider-track');
-    const certsDots  = document.querySelectorAll('.certs__dot');
-    if (certsTrack && certsDots.length) {
-      let certsCurrentSlide = 0;
-      const certsTotal = certsTrack.querySelectorAll('.certs__slide').length;
+    // ── Ініціалізація Reviews слайдера ───────────────────────────
+    initMobileSlider({
+      wrapSelector:  '.reviews__slider-track-wrap',
+      trackId:       'slider-track',
+      dotSelector:   '.reviews__dot',
+      slideSelector: '.reviews__slide',
+      dotActiveClass:'reviews__dot--active'
+    });
 
-      function goToCertsSlide(index) {
-        certsCurrentSlide = (index + certsTotal) % certsTotal;
-        certsTrack.style.transform = `translateX(-${certsCurrentSlide * 100}%)`;
-        certsDots.forEach((d, i) => {
-          d.classList.toggle('certs__dot--active', i === certsCurrentSlide);
-          d.setAttribute('aria-selected', String(i === certsCurrentSlide));
-        });
+    // ── Ініціалізація Certs слайдера ─────────────────────────────
+    initMobileSlider({
+      wrapSelector:  '.certs__slider-wrap',
+      trackId:       'certs-slider-track',
+      dotSelector:   '.certs__dot',
+      slideSelector: '.certs__slide',
+      dotActiveClass:'certs__dot--active'
+    });
+
+    // ============================================================
+    // CERTS DESKTOP 2-UP SLIDER
+    // Видно 2 слайди, циклічне гортання стрілками
+    // ============================================================
+    (function() {
+      var track   = document.getElementById('certs-grid-track');
+      var prevBtn = document.getElementById('certs-grid-prev');
+      var nextBtn = document.getElementById('certs-grid-next');
+      if (!track || !prevBtn || !nextBtn) return;
+
+      var slides   = Array.from(track.querySelectorAll('.certs__grid-slide'));
+      var total    = slides.length;   // 3
+      var visible  = 2;               // скільки видно одночасно
+      // Крок прокрутки — 1 слайд = 50% ширини треку (100% / visible)
+      var stepPct  = 100 / visible;   // 50%
+
+      // Клонуємо для циклічності: клон останнього на початок, клон першого в кінець
+      var cloneFirst = slides[0].cloneNode(true);
+      var cloneLast  = slides[total - 1].cloneNode(true);
+      cloneFirst.setAttribute('aria-hidden', 'true');
+      cloneLast.setAttribute('aria-hidden', 'true');
+      track.insertBefore(cloneLast, slides[0]);   // індекс 0 в DOM
+      track.appendChild(cloneFirst);               // індекс total+1 в DOM
+      // DOM: [cloneLast, slide0, slide1, slide2, cloneFirst]
+      // Стартуємо на slide0 → domOffset = 1 слайд = stepPct%
+
+      var current    = 0;        // реальний індекс лівого видимого слайду (0..total-1)
+      var domOffset  = 1;        // поточна позиція в DOM (1 = перший реальний)
+      var animating  = false;
+
+      function setPos(dom, animate) {
+        track.style.transition = animate
+          ? 'transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94)'
+          : 'none';
+        track.style.transform = 'translateX(-' + (dom * stepPct) + '%)';
+      }
+      setPos(domOffset, false);
+
+      track.addEventListener('transitionend', function() {
+        // Після анімації — перевіряємо чи треба стрибнути
+        if (domOffset === 0) {
+          // На клоні останнього → стрибаємо на реальний останній
+          domOffset = total;
+          setPos(domOffset, false);
+        } else if (domOffset === total + 1) {
+          // На клоні першого → стрибаємо на реальний перший
+          domOffset = 1;
+          setPos(domOffset, false);
+        }
+        animating = false;
+      });
+
+      function go(dir) {
+        if (animating) return;
+        animating  = true;
+        domOffset += dir;          // +1 → вперед, -1 → назад
+        current    = ((domOffset - 1) % total + total) % total;
+        setPos(domOffset, true);
       }
 
-      certsDots.forEach((dot, i) => dot.addEventListener('click', () => goToCertsSlide(i)));
-
-      let certsTouchStartX = 0;
-      certsTrack.addEventListener('touchstart', e => { certsTouchStartX = e.touches[0].clientX; }, { passive: true });
-      certsTrack.addEventListener('touchend',   e => {
-        const diff = certsTouchStartX - e.changedTouches[0].clientX;
-        if (Math.abs(diff) > 40) goToCertsSlide(certsCurrentSlide + (diff > 0 ? 1 : -1));
-      });
-    }
+      nextBtn.addEventListener('click', function() { go(1); });
+      prevBtn.addEventListener('click', function() { go(-1); });
+    })();
 
     // ============================================================
     // WORK STEPS — scroll animation (mobile only)
