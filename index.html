@@ -703,37 +703,88 @@
       const total  = slides.length;
       if (total < 2) return;
 
-      let current = 0;
-      let isSwiping = false;
+      // Додаємо клони: копія останнього на початок, копія першого в кінець
+      const cloneFirst = slides[0].cloneNode(true);
+      const cloneLast  = slides[total - 1].cloneNode(true);
+      track.appendChild(cloneFirst);
+      track.insertBefore(cloneLast, slides[0]);
+      // DOM тепер: [cloneLast, slide0, slide1, ..., slideN-1, cloneFirst]
 
-      function goTo(idx) {
-        current = idx;
-        const w = track.parentElement.offsetWidth;
-        track.scrollTo({ left: current * w, behavior: 'smooth' });
+      let current = 0; // логічний індекс (0..total-1)
+      let isJumping = false;
+
+      function slideW() {
+        return track.parentElement.offsetWidth;
+      }
+
+      function scrollToReal(idx, animate) {
+        // В DOM реальний слайд idx знаходиться на позиції idx+1 (бо є cloneLast на початку)
+        const pos = (idx + 1) * slideW();
+        if (animate) {
+          track.scrollTo({ left: pos, behavior: 'smooth' });
+        } else {
+          track.style.scrollBehavior = 'auto';
+          track.scrollLeft = pos;
+          track.style.scrollBehavior = '';
+        }
+      }
+
+      function updateDots(idx) {
         dots.forEach((d, i) => {
-          d.classList.toggle('reviews__dot--active', i === current);
-          d.setAttribute('aria-selected', String(i === current));
+          d.classList.toggle('reviews__dot--active', i === idx);
+          d.setAttribute('aria-selected', String(i === idx));
         });
       }
 
-      // Sync dots when user swipes natively
+      // Ставимо на перший реальний слайд без анімації
+      scrollToReal(0, false);
+      updateDots(0);
+
+      // Слухаємо scroll — синхронізуємо dots і робимо циклічний стрибок
       track.addEventListener('scroll', () => {
-        const w = track.parentElement.offsetWidth;
+        if (isJumping) return;
+        const w = slideW();
         if (!w) return;
-        const idx = Math.round(track.scrollLeft / w);
-        if (idx !== current) {
-          current = idx;
-          dots.forEach((d, i) => {
-            d.classList.toggle('reviews__dot--active', i === current);
-            d.setAttribute('aria-selected', String(i === current));
-          });
+        const pos = track.scrollLeft;
+        const domIdx = Math.round(pos / w); // 0 = cloneLast, 1..total = реальні, total+1 = cloneFirst
+
+        // Оновлюємо dots по логічному індексу
+        const logical = domIdx - 1;
+        if (logical >= 0 && logical < total && logical !== current) {
+          current = logical;
+          updateDots(current);
+        }
+
+        // Перестрибуємо з клона на реальний слайд
+        if (domIdx === 0) {
+          // Прокрутили до cloneLast → стрибаємо на останній реальний
+          isJumping = true;
+          current = total - 1;
+          track.style.scrollBehavior = 'auto';
+          track.scrollLeft = total * w;
+          track.style.scrollBehavior = '';
+          updateDots(current);
+          setTimeout(() => { isJumping = false; }, 50);
+        } else if (domIdx === total + 1) {
+          // Прокрутили до cloneFirst → стрибаємо на перший реальний
+          isJumping = true;
+          current = 0;
+          track.style.scrollBehavior = 'auto';
+          track.scrollLeft = w;
+          track.style.scrollBehavior = '';
+          updateDots(current);
+          setTimeout(() => { isJumping = false; }, 50);
         }
       }, { passive: true });
 
-      dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
+      dots.forEach((dot, i) => dot.addEventListener('click', () => {
+        current = i;
+        scrollToReal(i, true);
+        updateDots(i);
+      }));
 
-      // Swipe
-      let startX = 0, startY = 0;
+      // Свайп
+      let startX = 0, startY = 0, isSwiping = false;
       track.addEventListener('touchstart', e => {
         startX = e.touches[0].clientX;
         startY = e.touches[0].clientY;
@@ -750,10 +801,13 @@
         if (!isSwiping) return;
         const diffX = startX - e.changedTouches[0].clientX;
         if (Math.abs(diffX) > 50) {
+          // Циклічний перехід
           const next = diffX > 0
-            ? Math.min(current + 1, total - 1)
-            : Math.max(current - 1, 0);
-          goTo(next);
+            ? (current + 1) % total
+            : (current - 1 + total) % total;
+          current = next;
+          scrollToReal(current, true);
+          updateDots(current);
         }
       });
     })();
@@ -769,37 +823,80 @@
       const total  = slides.length;
       if (total < 2) return;
 
-      let current = 0;
-      let isSwiping = false;
+      // Додаємо клони: копія останнього на початок, копія першого в кінець
+      const cloneFirst = slides[0].cloneNode(true);
+      const cloneLast  = slides[total - 1].cloneNode(true);
+      track.appendChild(cloneFirst);
+      track.insertBefore(cloneLast, slides[0]);
+      // DOM тепер: [cloneLast, slide0, slide1, ..., slideN-1, cloneFirst]
 
-      function goTo(idx) {
-        current = idx;
-        const w = track.parentElement.offsetWidth;
-        track.scrollTo({ left: current * w, behavior: 'smooth' });
+      let current = 0;
+      let isJumping = false;
+
+      function slideW() {
+        return track.parentElement.offsetWidth;
+      }
+
+      function scrollToReal(idx, animate) {
+        const pos = (idx + 1) * slideW();
+        if (animate) {
+          track.scrollTo({ left: pos, behavior: 'smooth' });
+        } else {
+          track.style.scrollBehavior = 'auto';
+          track.scrollLeft = pos;
+          track.style.scrollBehavior = '';
+        }
+      }
+
+      function updateDots(idx) {
         dots.forEach((d, i) => {
-          d.classList.toggle('certs__dot--active', i === current);
-          d.setAttribute('aria-selected', String(i === current));
+          d.classList.toggle('certs__dot--active', i === idx);
+          d.setAttribute('aria-selected', String(i === idx));
         });
       }
 
-      // Sync dots when user swipes natively
+      scrollToReal(0, false);
+      updateDots(0);
+
       track.addEventListener('scroll', () => {
-        const w = track.parentElement.offsetWidth;
+        if (isJumping) return;
+        const w = slideW();
         if (!w) return;
-        const idx = Math.round(track.scrollLeft / w);
-        if (idx !== current) {
-          current = idx;
-          dots.forEach((d, i) => {
-            d.classList.toggle('certs__dot--active', i === current);
-            d.setAttribute('aria-selected', String(i === current));
-          });
+        const domIdx = Math.round(track.scrollLeft / w);
+
+        const logical = domIdx - 1;
+        if (logical >= 0 && logical < total && logical !== current) {
+          current = logical;
+          updateDots(current);
+        }
+
+        if (domIdx === 0) {
+          isJumping = true;
+          current = total - 1;
+          track.style.scrollBehavior = 'auto';
+          track.scrollLeft = total * w;
+          track.style.scrollBehavior = '';
+          updateDots(current);
+          setTimeout(() => { isJumping = false; }, 50);
+        } else if (domIdx === total + 1) {
+          isJumping = true;
+          current = 0;
+          track.style.scrollBehavior = 'auto';
+          track.scrollLeft = w;
+          track.style.scrollBehavior = '';
+          updateDots(current);
+          setTimeout(() => { isJumping = false; }, 50);
         }
       }, { passive: true });
 
-      dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
+      dots.forEach((dot, i) => dot.addEventListener('click', () => {
+        current = i;
+        scrollToReal(i, true);
+        updateDots(i);
+      }));
 
-      // Swipe
-      let startX = 0, startY = 0;
+      // Свайп
+      let startX = 0, startY = 0, isSwiping = false;
       track.addEventListener('touchstart', e => {
         startX = e.touches[0].clientX;
         startY = e.touches[0].clientY;
@@ -817,9 +914,11 @@
         const diffX = startX - e.changedTouches[0].clientX;
         if (Math.abs(diffX) > 50) {
           const next = diffX > 0
-            ? Math.min(current + 1, total - 1)
-            : Math.max(current - 1, 0);
-          goTo(next);
+            ? (current + 1) % total
+            : (current - 1 + total) % total;
+          current = next;
+          scrollToReal(current, true);
+          updateDots(current);
         }
       });
     })();
