@@ -606,7 +606,7 @@
     // ============================================================
     // REVIEWS SLIDER — mobile (infinite loop, Safari-safe)
     // ============================================================
-    (function () {
+    document.addEventListener('DOMContentLoaded', function () {
       var wrap  = document.querySelector('.reviews__slider-track-wrap');
       var track = document.getElementById('slider-track');
       var dots  = Array.from(document.querySelectorAll('.reviews__dot'));
@@ -708,6 +708,8 @@
       });
 
       // ---- Touch / Swipe ----
+      // touch-action: pan-y на wrap дозволяє браузеру вертикальний скрол,
+      // але горизонтальний свайп браузер більше не перехоплює — e.preventDefault() не потрібен
       var touchStartX = 0;
       var touchStartY = 0;
       var swipeDir    = null; // 'h' | 'v' | null
@@ -724,16 +726,11 @@
         var dx = e.touches[0].clientX - touchStartX;
         var dy = e.touches[0].clientY - touchStartY;
         if (swipeDir === null) {
-          // Визначаємо напрямок після мінімального руху
           if (Math.abs(dx) > 5 || Math.abs(dy) > 5) {
             swipeDir = (Math.abs(dx) >= Math.abs(dy)) ? 'h' : 'v';
           }
         }
-        if (swipeDir === 'h') {
-          // Блокуємо вертикальний скрол сторінки під час горизонтального свайпу
-          e.preventDefault();
-        }
-      }, { passive: false });
+      }, { passive: true });
 
       track.addEventListener('touchend', function (e) {
         if (swipeDir !== 'h') return;
@@ -755,7 +752,7 @@
       // ---- Ініціалізація ----
       jumpTo(1);
       updateDots(0);
-    })();
+    });
 
     // ============================================================
     // LANGUAGE SWITCHER

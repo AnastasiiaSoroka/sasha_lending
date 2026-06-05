@@ -29,7 +29,6 @@
 html {
   font-size: 16px;
   scroll-behavior: smooth;
-  overflow-x: hidden;
 }
 
 body {
@@ -38,7 +37,6 @@ body {
   color: var(--color-text);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
 }
 
 img {
@@ -1939,6 +1937,8 @@ ul {
     overflow: hidden;
     width: 100%;
     border-radius: 0.9375rem;
+    /* Дозволяємо браузеру вертикальний скрол, але горизонтальний свайп — наш */
+    touch-action: pan-y;
     /* Safari: ізолюємо stacking context */
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
