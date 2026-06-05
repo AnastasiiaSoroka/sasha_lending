@@ -1803,6 +1803,7 @@ ul {
 @media (max-width: 768px) {
   .reviews__stack  { display: none; }
   .reviews__slider { display: block; width: 100%; }
+   .reviews__title {font-size: 1.75rem;}
 
   .reviews__slider-track-wrap {
     overflow: hidden;
