@@ -1,1 +1,1071 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Олександра Новохатня — студент-коуч акредитованої ICF програми та ментор з тайм-менеджменту" />
+  <title>Олександра Новохатняя — Коуч та Ментор</title>
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <link rel="apple-touch-icon" href="favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
 
+  <!-- ==============================
+       HEADER
+       ============================== -->
+  <header class="header" role="banner">
+    <!-- Burger (mobile only) -->
+    <button class="burger" id="burger-btn" aria-label="Відкрити меню" aria-expanded="false" aria-controls="mobile-nav">
+      <span class="burger__line"></span>
+      <span class="burger__line"></span>
+      <span class="burger__line"></span>
+    </button>
+
+    <!-- Desktop nav (hidden on mobile via CSS) -->
+    <nav class="header__nav" aria-label="Основна навігація">
+      <ul class="header__nav-list" role="list">
+        <li><a href="#about" class="header__nav-link">про мене</a></li>
+        <li><a href="mentor/" class="header__nav-link">менторство</a></li>
+        <li><a href="coaching/" class="header__nav-link">коучинг</a></li>
+      </ul>
+    </nav>
+
+    <!-- Desktop right: Instagram + перемикач мови -->
+    <div class="header__right">
+      <a href="https://www.instagram.com/sasha_newhouse" target="_blank" rel="noopener noreferrer"
+         class="header__insta" aria-label="Перейти до Instagram">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+          <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.8"/>
+          <circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/>
+          <circle cx="17.5" cy="6.5" r="1" fill="currentColor"/>
+        </svg>
+      </a>
+
+      <div class="lang" id="lang-desktop">
+        <button class="lang__btn" id="lang-btn-desktop" aria-haspopup="listbox" aria-expanded="false" aria-label="Вибір мови">
+          <span class="lang__current" id="lang-current-desktop">UA</span>
+          <svg class="lang__arrow" width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true">
+            <path d="M1 1L5 5L9 1" stroke="#2B2B2B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <ul class="lang__dropdown" id="lang-dropdown-desktop" role="listbox" aria-label="Мови" aria-hidden="true">
+          <li class="lang__option lang__option--active" role="option" aria-selected="true"  data-lang="UA"><a href="">UA</a></li>
+          <li class="lang__option"                      role="option" aria-selected="false" data-lang="RU"><a href="/sasha_lending/">RU</a></li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile dropdown nav -->
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Мобільна навігація">
+    <a href="#about" class="mobile-nav__link">про мне</a>
+    <a href="mentor/" class="mobile-nav__link">менторство</a>
+    <a href="coaching/" class="mobile-nav__link">коучинг</a>
+  </nav>
+
+  <main id="main-content">
+
+    <!-- ==============================
+         HERO
+         ============================== -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero__content">
+        <h1 class="hero__title" id="hero-title">
+          <span class="hero__title-inner">
+            Олександра Новохатня
+            <img src="assets/vector_15__1_.png" alt="" class="hero__title-vector" aria-hidden="true" />
+          </span>
+        </h1>
+
+        <p class="hero__subtitle">
+          коуч, проходжу акредитацію ICF,<br />
+          ментор з тайм-менеджменту
+        </p>
+
+        <p class="hero__description">
+          Зі мною клієнти проявляють себе,
+          розвиваються і починають діяти без вигорання та хаосу
+        </p>
+
+        <a href="#formats" class="btn btn--lavender">ОБРАТИ ФОРМАТ</a>
+      </div>
+
+      <div class="hero__image-wrap">
+        <!-- Ellipse 43: amber blur 227×227px, top-right corner -->
+        <div class="hero__blur hero__blur--amber" aria-hidden="true"></div>
+        <!-- Dark overlay rgba(0,0,0,0.2) per Figma -->
+        <div class="hero__photo-overlay" aria-hidden="true"></div>
+        <img
+          src="assets/main_photo.webp"
+          alt="Олександра Новохатня"
+          class="hero__photo"
+          loading="eager"
+          fetchpriority="high"
+        />
+      </div>
+    </section>
+
+    <!-- ==============================
+         MARQUEE STRIP
+         ============================== -->
+    <div class="marquee-strip" aria-hidden="true">
+      <div class="marquee-track">
+        <span>коучинг</span>
+        <span>менторство</span>
+        <span>коучинг</span>
+        <span>менторство</span>
+        <span>коучинг</span>
+        <span>менторство</span>
+        <span>коучинг</span>
+        <span>менторство</span>
+        <span>коучинг</span>
+        <span>менторство</span>
+        <span>коучинг</span>
+        <span>менторство</span>
+        <span>коучинг</span>
+        <span>менторство</span>
+        <span>коучинг</span>
+        <span>менторство</span>
+      </div>
+    </div>
+
+    <!-- ==============================
+         WHO I AM
+         ============================== -->
+    <section class="who" id="about" aria-labelledby="who-title">
+      <div class="who__inner">
+        <div class="who__heading-wrap">
+          <h2 class="who__title" id="who-title">Хто я</h2>
+          <img src="assets/vector_17.png" alt="" class="who__title-vector" aria-hidden="true" />
+        </div>
+
+        <div class="who__arrows" aria-hidden="true">
+          <img src="assets/arrow_13.png" alt="" class="who__arrow who__arrow--left" />
+          <img src="assets/arrow_14.png" alt="" class="who__arrow who__arrow--right" />
+        </div>
+
+        <div class="who__cards">
+          <div class="who__card">
+            <p class="who__card-text">коуч, проходжу акредитацію ICF</p>
+          </div>
+          <div class="who__card">
+            <p class="who__card-text">ментор з тайм-менеджменту</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==============================
+         ABOUT ME
+         ============================== -->
+    <section class="about" id="about-me" aria-labelledby="about-title">
+      <div class="about__image-col">
+        <div class="about__photo-wrap">
+          <div class="about__blur about__blur--amber" aria-hidden="true"></div>
+          <div class="about__blur about__blur--lavender" aria-hidden="true"></div>
+          <img
+            src="assets/main_photo.webp"
+            alt="Олександра Новохатня — портрет"
+            class="about__photo"
+            loading="lazy"
+          />
+        </div>
+      </div>
+
+      <div class="about__content">
+        <div class="about__heading-wrap">
+          <h2 class="about__title" id="about-title">Про мене</h2>
+          <img src="assets/vector_17.png" alt="" class="about__title-vector" aria-hidden="true" />
+        </div>
+
+        <ul class="about__list" aria-label="Факты про меня">
+          <li>проходжу акредитацію ICF, понад 60 годин коучингової практики</li>
+          <li>ментор з тайм-менеджменту</li>
+          <li>7+ років в IT як Business/Systems Analyst у healthcare, fintech та EdTech/li>
+          <li>6+ років веду блог в Instagram та реалізую фріланс-проєкти на посаді Product/Project Marketing Manager</li>
+          <li>запускала власні проєкти: від гайдів по Португалії до майстер-класів з приготування коктейлів — знаю, як ідея перетворюється на реальний продукт</li>
+        </ul>
+
+        <div class="about__stats" aria-label="Статистика">
+          <div class="about__stat">
+            <span class="about__stat-num">7+</span>
+            <span class="about__stat-label">років працювала<br/>в IT</span>
+          </div>
+          <div class="about__stat">
+            <span class="about__stat-num">60+</span>
+            <span class="about__stat-label">проведених<br/>коуч сесій</span>
+          </div>
+          <div class="about__stat">
+            <span class="about__stat-num">6+</span>
+            <span class="about__stat-label">веду<br/>блог</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==============================
+         HELP / COACHING & MENTORING
+         ============================== -->
+    <section class="help" id="coaching" aria-labelledby="help-title">
+      <div class="help__inner">
+        <div class="help__heading-wrap">
+          <h2 class="section-title" id="help-title">З чим я можу вам допомогти?</h2>
+          <img src="assets/Vector_19.png" alt="" class="help__title-vector" aria-hidden="true" />
+        </div>
+
+        </div>
+
+        <div class="help__cards">
+          <article class="help__card">
+            <div class="help__blur help__blur--tl" aria-hidden="true"></div>
+            <h3 class="help__card-title">Коучинг</h3>
+            <p class="help__card-text">
+              Зі мною можна навчитися мислити по-іншому та знайти нові можливості для розвитку
+              Коли бракує ясності, зосередженості чи сміливості, щоб зробити наступний крок.
+            </p>
+            <a href="coaching/" class="btn btn--lavender help__btn">ДЕТАЛЬНІШЕ</a>
+          </article>
+
+          <article class="help__card">
+            <div class="help__blur help__blur--bl" aria-hidden="true"></div>
+            <h3 class="help__card-title">Менторство з<br />тайм-менеджменту</h3>
+            <p class="help__card-text">
+              Допомагаю знайти час на те, що важливо
+            </p>
+            <a href="mentor/" class="btn btn--lavender help__btn">ДЕТАЛЬНІШЕ</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==============================
+         FORMATS
+         ============================== -->
+    <section class="formats" id="formats" aria-labelledby="formats-title">
+      <div class="formats__heading-wrap">
+        <h2 class="formats__title" id="formats-title">Обери формат роботи</h2>
+        <img src="assets/Vector_21.png" alt="" class="formats__title-vector" aria-hidden="true" />
+      </div>
+
+      <div class="formats__layout">
+        <div class="formats__image-col">
+          <div class="formats__blur" aria-hidden="true"></div>
+          <img
+            src="assets/formats.webp"
+            alt="Формати роботи — фото Олександра"
+            class="formats__photo"
+            loading="lazy"
+          />
+        </div>
+
+        <div class="formats__cards-col">
+          <article class="formats__card">
+            <h3 class="formats__card-title">Коучинг</h3>
+            <p class="formats__card-text">
+              Коучинг — це простір, де ви нарешті можете зупинитися й подумати про себе без поспіху. <br/>Моє завдання — допомогти вам знайти власні відповіді, спираючись на ваш унікальний досвід, цінності та цілі.<br/> Я працюю з тими, хто прагне самореалізуватися, розвиватися та діяти — без вигорання та відчуття, що ви живете чужим життям.
+            </p>
+            <a href="coaching/" class="btn btn--lavender formats__btn">ДЕТАЛЬНІШЕ</a>
+          </article>
+
+          <article class="formats__card formats__card--no-top">
+            <h3 class="formats__card-title">Менторство з тайм-менеджменту</h3>
+            <p class="formats__card-text">
+              Це індивідуальна робота зі мною у форматі менторства. <br/>Я не читаю лекцій і не даю універсальних порад — ми разом аналізуємо твою конкретну ситуацію та вибудовуємо систему, яка працює саме для тебе.
+            </p>
+            <a href="mentor/" class="btn btn--lavender formats__btn">ДЕТАЛЬНІШЕ</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==============================
+         CTA STRIP
+         ============================== -->
+    <section class="cta-strip" aria-labelledby="cta-title">
+      <h2 class="cta-strip__title" id="cta-title">Не знаєте, який формат обрати?</h2>
+      <p class="cta-strip__sub">звертайтеся до мене із запитаннями або для запису на консультацію</p>
+      <a href="#contact" class="btn cta-strip__btn">ЗАЛИШИТИ ЗАПИТ</a>
+    </section>
+
+    <!-- ==============================
+         PROCESS
+         ============================== -->
+    <section class="process" aria-labelledby="process-title">
+      <div class="process__heading-wrap">
+        <h2 class="process__title" id="process-title">Як відбувається робота</h2>
+        <img src="assets/Vector_22.png" alt="" class="process__title-vector" aria-hidden="true" />
+      </div>
+
+      <ol class="process__steps" aria-label="Кроки роботи">
+        <li class="process__step">
+          <img src="assets/free-icon-font-calendar__1_.png" alt="" class="process__icon" aria-hidden="true" />
+          <p class="process__label">Запис на сесію</p>
+          <img src="assets/group_49.png" alt="" class="process__arrow" aria-hidden="true" />
+        </li>
+
+        <li class="process__step">
+          <img src="assets/free-icon-font-users-alt__1_.png" alt="" class="process__icon" aria-hidden="true" />
+          <p class="process__label">Ознайомлення та визначення цілей</p>
+          <img src="assets/group_49.png" alt="" class="process__arrow" aria-hidden="true" />
+        </li>
+
+        <li class="process__step">
+          <img src="assets/free-icon-font-clock-three__2_.png" alt="" class="process__icon" aria-hidden="true" />
+          <p class="process__label">Робота над системою</p>
+          <img src="assets/group_49.png" alt="" class="process__arrow" aria-hidden="true" />
+        </li>
+
+        <li class="process__step">
+          <img src="assets/free-icon-font-fire-flame-simple.png" alt="" class="process__icon" aria-hidden="true" />
+          <p class="process__label">Досягнення поставлених цілей</p>
+        </li>
+      </ol>
+
+      <div class="process__cta">
+        <a href="#formats" class="btn process__btn">ОБРАТИ ФОРМАТ</a>
+      </div>
+    </section>
+
+    <!-- ==============================
+         REVIEWS
+         ============================== -->
+    <section class="reviews" aria-labelledby="reviews-title">
+      <div class="reviews__heading-wrap">
+        <h2 class="reviews__title" id="reviews-title">Відгуки клієнтів</h2>
+        <img src="assets/Vector_21.png" alt="" class="reviews__title-vector" aria-hidden="true" />
+      </div>
+
+      <!-- Desktop: стек із 3 карток -->
+      <div class="reviews__stack" id="reviews-stack" role="region" aria-label="Відгуки клієнтів">
+        <article class="reviews__card reviews__card--active" data-index="0" tabindex="0" aria-label="Відгук 1">
+          <img src="assets/image_30.png" alt="Відгук клієнта 1" class="reviews__card-img" draggable="false" loading="lazy" />
+        </article>
+        <article class="reviews__card reviews__card--back" data-index="1" tabindex="0" role="button" aria-label="Відгук 2">
+          <img src="assets/image_32.png" alt="Відгук клієнта 2" class="reviews__card-img" draggable="false" loading="lazy" />
+        </article>
+        <article class="reviews__card reviews__card--back" data-index="2" tabindex="0" role="button" aria-label="Відгук 3">
+          <img src="assets/image_33.png" alt="Відгук клієнта 3" class="reviews__card-img" draggable="false" loading="lazy" />
+        </article>
+      </div>
+
+      <!-- Mobile/tablet: слайдер -->
+      <div class="reviews__slider" role="region" aria-label="Слайдер відгуків">
+        <div class="reviews__slider-track-wrap">
+          <div class="reviews__slider-track" id="reviews-slider-track">
+            <div class="reviews__slide"><img src="assets/image_30.png" alt="Відгук клієнта 1" loading="lazy" /></div>
+            <div class="reviews__slide"><img src="assets/image_32.png" alt="Відгук клієнта 2" loading="lazy" /></div>
+            <div class="reviews__slide"><img src="assets/image_33.png" alt="Відгук клієнта 3" loading="lazy" /></div>
+          </div>
+        </div>
+        <div class="reviews__dots" role="tablist" aria-label="Навігація слайдера">
+          <button class="reviews__dot reviews__dot--active" role="tab" aria-selected="true"  aria-label="Відгук 1" data-slide="0"></button>
+          <button class="reviews__dot"                     role="tab" aria-selected="false" aria-label="Відгук 2" data-slide="1"></button>
+          <button class="reviews__dot"                     role="tab" aria-selected="false" aria-label="Відгук 3" data-slide="2"></button>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ==============================
+         CERTIFICATES
+         ============================== -->
+    <section class="certs" aria-labelledby="certs-title">
+      <div class="certs__heading-wrap">
+        <h2 class="certs__title" id="certs-title">Сертифікати</h2>
+        <img src="assets/Vector_20.png" alt="" class="certs__title-vector" aria-hidden="true" />
+      </div>
+
+      <!-- Desktop: grid (без змін) -->
+      <div class="certs__grid">
+        <figure class="certs__card">
+          <img
+            src="assets/certificate_Ethical.webp"
+            alt="Сертифікат акредитації ICF"
+            class="certs__img"
+            loading="lazy"
+          />
+        </figure>
+        <figure class="certs__card">
+          <img
+            src="assets/long-term_contracts.webp"
+            alt="Сертифікат акредитації ICF"
+            class="certs__img"
+            loading="lazy"
+          />
+        </figure>
+                <figure class="certs__card">
+          <img
+            src="assets/Metaphors_and_Transformation Pauses.webp"
+            alt="Сертифікат акредитації ICF"
+            class="certs__img"
+            loading="lazy"
+          />
+        </figure>
+      </div>
+
+      <!-- Desktop: слайдер (активується JS коли > 2 зображень) -->
+      <div class="certs__desktop-slider" id="certs-desktop-slider" role="region" aria-label="Слайдер сертифікатів десктоп">
+        <div class="certs__desktop-track-wrap">
+          <button class="certs__desktop-btn certs__desktop-prev" aria-label="Попередній сертифікат">&#8249;</button>
+          <div class="certs__desktop-track-outer">
+            <div class="certs__desktop-track"></div>
+          </div>
+          <button class="certs__desktop-btn certs__desktop-next" aria-label="Наступний сертифікат">&#8250;</button>
+        </div>
+        <div class="certs__desktop-dots" role="tablist" aria-label="Навігація слайдера"></div>
+      </div>
+
+      <!-- Mobile/tablet: слайдер -->
+      <div class="certs__slider" role="region" aria-label="Слайдер сертифікатів">
+        <div class="certs__slider-track-wrap">
+          <div class="certs__slider-track" id="certs-slider-track">
+            <div class="certs__slide">
+              <img src="assets/certificate_Ethical.webp" alt="Сертифікат 1" loading="lazy" />
+            </div>
+            <div class="certs__slide">
+              <img src="assets/long-term_contracts.webp" alt="Сертифікат 2" loading="lazy" />
+            </div>
+            <div class="certs__slide">
+              <img src="assets/Metaphors_and_Transformation Pauses.webp" alt="Сертифікат 3" loading="lazy" />
+            </div>
+          </div>
+        </div>
+        <div class="certs__dots" role="tablist" aria-label="Навігація слайдера">
+          <button class="certs__dot certs__dot--active" role="tab" aria-selected="true"  aria-label="Сертифікат 1" data-slide="0"></button>
+          <button class="certs__dot"                   role="tab" aria-selected="false" aria-label="Сертифікат 2" data-slide="1"></button>
+          <button class="certs__dot"                   role="tab" aria-selected="false" aria-label="Сертифікат 3" data-slide="2"></button>          
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ==============================
+         FAQ
+         ============================== -->
+    <section class="faq" id="faq" aria-labelledby="faq-title">
+      <div class="faq__header">
+        <div class="faq__heading-wrap">
+          <h2 class="faq__title" id="faq-title">FAQ</h2>
+          <img src="assets/Vector_24.png" alt="" class="faq__title-vector" aria-hidden="true" />
+        </div>
+        <p class="faq__sub">
+          Якщо у вас залишилися запитання — це цілком нормально.
+          Не соромтеся написати мені в Instagram — я завжди готова
+          до спілкування і з радістю відповім на все, що важливо саме для вас.
+        </p>
+      </div>
+
+      <div class="faq__layout">
+        <div class="faq__questions" role="tablist" aria-label="Питання FAQ">
+          <button
+            class="faq__q faq__q--active"
+            data-answer="answer-1"
+            role="tab"
+            aria-selected="true"
+            aria-controls="answer-1"
+            id="tab-1"
+          >
+            У чому полягає різниця між коучингом і менторством?
+          </button>
+          <button
+            class="faq__q"
+            data-answer="answer-2"
+            role="tab"
+            aria-selected="false"
+            aria-controls="answer-2"
+            id="tab-2"
+          >
+            Чому я раджу обирати пакети, а не окремі сесії?
+          </button>
+          <button
+            class="faq__q"
+            data-answer="answer-3"
+            role="tab"
+            aria-selected="false"
+            aria-controls="answer-3"
+            id="tab-3"
+          >
+            Якщо коуч не дає порад — навіщо він мені?
+          </button>
+        </div>
+
+        <div class="faq__answer-box" role="tabpanel">
+
+          <div class="faq__answer" id="answer-1" aria-labelledby="tab-1">
+            <p>Коуч — це ніби зовнішня опора. Він не дає порад чи інструментів. Він допомагає навчитися мислити інакше та знайти нові можливості для розвитку. Це як дзеркало, яке висвітлює те, що заважає здійснити бажане.</p>
+            <p>Ментор — людина-експерт у певній галузі. Він дає поради та інструменти, спираючись на свій досвід. Наприклад, я — ментор з тайм-менеджменту.</p>
+          </div>
+
+          <div class="faq__answer faq__answer--hidden" id="answer-2" aria-labelledby="tab-2">
+            <p>Разова сесія дає інсайт, але не приносить змін. Зміни відбуваються завдяки повторенню, рефлексії та послідовності.</p>
+          </div>
+
+          <div class="faq__answer faq__answer--hidden" id="answer-3" aria-labelledby="tab-3">
+            <p>Поради — це чужі відповіді на твої запитання. Вони не завжди працюють. </p>
+            <p>Коучинг розвиває твою здатність мислити чіткіше та приймати рішення, не зважаючи на чужі думки. Це навичка, яка залишається з тобою назавжди.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==============================
+         CONTACT
+         ============================== -->
+    <section class="contact" id="contact" aria-labelledby="contact-title">
+      <div class="contact__blur" aria-hidden="true"></div>
+
+      <p class="contact__text" id="contact-title">
+      Заповніть форму, і я зв’яжуся з вами,<br />
+        щоб домовитися про зручний час<br />
+        та обговорити деталі
+      </p>
+      <form action="https://formspree.io/f/xaqzwknn" method="POST" class="contact__form-wrap">
+        <div class="contact__field">
+          <input type="hidden" name="page_url" id="page-url"/>
+          <script>
+              document.getElementById('page-url').value = window.location.href;
+          </script>
+          <label for="contact-name" class="sr-only">Ім'я</label>
+          <input
+            type="text"
+            id="contact-name"
+            name="name"
+            placeholder="name"
+            class="contact__input"
+            autocomplete="name"
+          />
+        </div>
+        <div class="contact__field">
+          <label for="contact-phone" class="sr-only">telegram</label>
+          <input
+            type="tel"
+            id="contact-phone"
+            name="telegram"
+            placeholder="telegram"
+            class="contact__input"
+            autocomplete="tel"
+          />
+        </div>
+        <div class="contact__field">
+          <label for="contact-email" class="sr-only">Email</label>
+          <input
+            type="email"
+            id="contact-email"
+            name="email"
+            placeholder="email"
+            class="contact__input"
+            autocomplete="email"
+          />
+        </div>
+        <div class="contact__field">
+          <label for="contact-comment" class="sr-only">Коментарии</label>
+          <textarea
+            id="contact-comment"
+            name="comment"
+            placeholder="comment..."
+            class="contact__input contact__textarea"
+            rows="4"
+          ></textarea>
+        </div>
+        <button type="submit" class="btn contact__submit">ЗАЛИШИТИ ЗАПИТ</button>
+        <p class="contact__privacy">Натискаючи на кнопку, ви даєте згоду на обробку персональних даних та погоджуєтеся з політикою конфіденційності</p>
+      </form>
+    </section>
+
+  </main>
+
+  <!-- ==============================
+       FOOTER
+       ============================== -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer__top">
+      <p class="footer__name">Новохатня Олександра</p>
+      <nav class="footer__nav" aria-label="Навігація в підвалі">
+        <a href="#about" class="footer__link">про мне</a>
+        <a href="mentor/" class="footer__link">менторство</a>
+        <a href="coaching/" class="footer__link">коучинг</a>
+      </nav>
+    </div>
+
+    <div class="footer__socials">
+      <a href="https://www.instagram.com/sasha_newhouse" target="_blank" rel="noopener noreferrer"
+         class="footer__social-link" aria-label="Instagram">
+        <img src="assets/Social_Icons1.png" alt="Instagram" class="footer__social-icon" />
+      </a>
+      <a href="#" target="_blank" rel="noopener noreferrer"
+         class="footer__social-link" aria-label="Соціальна мережа">
+        <img src="assets/Social_Icons2.png" alt="" class="footer__social-icon" />
+      </a>
+    </div>
+        <p class="footer__bottom">© 2026 Олександра Новохатняя. Всі права захищенні.</p>
+  </footer>
+
+  <script>
+    // Burger menu
+    const burgerBtn = document.getElementById('burger-btn');
+    const mobileNav = document.getElementById('mobile-nav');
+
+    burgerBtn.addEventListener('click', () => {
+      const isOpen = mobileNav.classList.toggle('mobile-nav--open');
+      burgerBtn.classList.toggle('burger--open', isOpen);
+      burgerBtn.setAttribute('aria-expanded', isOpen);
+    });
+
+    // Close mobile nav on link click
+    mobileNav.querySelectorAll('.mobile-nav__link').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileNav.classList.remove('mobile-nav--open');
+        burgerBtn.classList.remove('burger--open');
+        burgerBtn.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // Language switcher
+    (function () {
+      const btn      = document.getElementById('lang-btn-desktop');
+      const dropdown = document.getElementById('lang-dropdown-desktop');
+      const current  = document.getElementById('lang-current-desktop');
+      const wrapper  = document.getElementById('lang-desktop');
+      if (!btn || !dropdown) return;
+
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        const isOpen = dropdown.classList.contains('lang__dropdown--open');
+        dropdown.classList.toggle('lang__dropdown--open', !isOpen);
+        wrapper.classList.toggle('lang--open', !isOpen);
+        btn.setAttribute('aria-expanded', String(!isOpen));
+        dropdown.setAttribute('aria-hidden', String(isOpen));
+      });
+
+      dropdown.querySelectorAll('.lang__option').forEach(function (option) {
+        option.addEventListener('click', function () {
+          dropdown.querySelectorAll('.lang__option').forEach(function (o) {
+            o.classList.remove('lang__option--active');
+            o.setAttribute('aria-selected', 'false');
+          });
+          option.classList.add('lang__option--active');
+          option.setAttribute('aria-selected', 'true');
+          current.textContent = option.dataset.lang;
+          dropdown.classList.remove('lang__dropdown--open');
+          wrapper.classList.remove('lang--open');
+          btn.setAttribute('aria-expanded', 'false');
+          dropdown.setAttribute('aria-hidden', 'true');
+        });
+      });
+
+      document.addEventListener('click', function (e) {
+        if (!wrapper.contains(e.target)) {
+          dropdown.classList.remove('lang__dropdown--open');
+          wrapper.classList.remove('lang--open');
+          btn.setAttribute('aria-expanded', 'false');
+          dropdown.setAttribute('aria-hidden', 'true');
+        }
+      });
+    })();
+
+    // Reviews stack — desktop
+    (function () {
+      const stack = document.getElementById('reviews-stack');
+      if (!stack) return;
+      const cards = Array.from(stack.querySelectorAll('.reviews__card'));
+
+      function activateCard(target) {
+        cards.forEach(c => {
+          c.classList.remove('reviews__card--active');
+          c.classList.add('reviews__card--back');
+          c.setAttribute('role', 'button');
+        });
+        target.classList.remove('reviews__card--back');
+        target.classList.add('reviews__card--active');
+        target.removeAttribute('role');
+      }
+
+      cards.forEach(card => {
+        card.addEventListener('click', () => {
+          if (!card.classList.contains('reviews__card--active')) activateCard(card);
+        });
+        card.addEventListener('keydown', e => {
+          if ((e.key === 'Enter' || e.key === ' ') && !card.classList.contains('reviews__card--active')) {
+            e.preventDefault();
+            activateCard(card);
+          }
+        });
+      });
+    })();
+
+    // Reviews slider — mobile/tablet
+    (function () {
+      const track = document.getElementById('reviews-slider-track');
+      const dots  = Array.from(document.querySelectorAll('.reviews__dot'));
+      if (!track || !dots.length) return;
+
+      const slides = Array.from(track.querySelectorAll('.reviews__slide'));
+      const total  = slides.length;
+      if (total < 2) return;
+
+      // Додаємо клони: копія останнього на початок, копія першого в кінець
+      const cloneFirst = slides[0].cloneNode(true);
+      const cloneLast  = slides[total - 1].cloneNode(true);
+      track.appendChild(cloneFirst);
+      track.insertBefore(cloneLast, slides[0]);
+      // DOM тепер: [cloneLast, slide0, slide1, ..., slideN-1, cloneFirst]
+
+      let current = 0; // логічний індекс (0..total-1)
+      let isJumping = false;
+
+      function slideW() {
+        return track.parentElement.offsetWidth;
+      }
+
+      function scrollToReal(idx, animate) {
+        // В DOM реальний слайд idx знаходиться на позиції idx+1 (бо є cloneLast на початку)
+        const pos = (idx + 1) * slideW();
+        if (animate) {
+          track.scrollTo({ left: pos, behavior: 'smooth' });
+        } else {
+          track.style.scrollBehavior = 'auto';
+          track.scrollLeft = pos;
+          track.style.scrollBehavior = '';
+        }
+      }
+
+      function updateDots(idx) {
+        dots.forEach((d, i) => {
+          d.classList.toggle('reviews__dot--active', i === idx);
+          d.setAttribute('aria-selected', String(i === idx));
+        });
+      }
+
+      // Ставимо на перший реальний слайд без анімації
+      scrollToReal(0, false);
+      updateDots(0);
+
+      // Слухаємо scroll — синхронізуємо dots і робимо циклічний стрибок
+      track.addEventListener('scroll', () => {
+        if (isJumping) return;
+        const w = slideW();
+        if (!w) return;
+        const pos = track.scrollLeft;
+        const domIdx = Math.round(pos / w); // 0 = cloneLast, 1..total = реальні, total+1 = cloneFirst
+
+        // Оновлюємо dots по логічному індексу
+        const logical = domIdx - 1;
+        if (logical >= 0 && logical < total && logical !== current) {
+          current = logical;
+          updateDots(current);
+        }
+
+        // Перестрибуємо з клона на реальний слайд
+        if (domIdx === 0) {
+          // Прокрутили до cloneLast → стрибаємо на останній реальний
+          isJumping = true;
+          current = total - 1;
+          track.style.scrollBehavior = 'auto';
+          track.scrollLeft = total * w;
+          track.style.scrollBehavior = '';
+          updateDots(current);
+          setTimeout(() => { isJumping = false; }, 50);
+        } else if (domIdx === total + 1) {
+          // Прокрутили до cloneFirst → стрибаємо на перший реальний
+          isJumping = true;
+          current = 0;
+          track.style.scrollBehavior = 'auto';
+          track.scrollLeft = w;
+          track.style.scrollBehavior = '';
+          updateDots(current);
+          setTimeout(() => { isJumping = false; }, 50);
+        }
+      }, { passive: true });
+
+      dots.forEach((dot, i) => dot.addEventListener('click', () => {
+        current = i;
+        scrollToReal(i, true);
+        updateDots(i);
+      }));
+
+      // Свайп
+      let startX = 0, startY = 0, isSwiping = false;
+      track.addEventListener('touchstart', e => {
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+        isSwiping = false;
+      }, { passive: true });
+      track.addEventListener('touchmove', e => {
+        if (!isSwiping) {
+          const dx = Math.abs(e.touches[0].clientX - startX);
+          const dy = Math.abs(e.touches[0].clientY - startY);
+          isSwiping = dx > dy;
+        }
+      }, { passive: true });
+      track.addEventListener('touchend', e => {
+        if (!isSwiping) return;
+        const diffX = startX - e.changedTouches[0].clientX;
+        if (Math.abs(diffX) > 50) {
+          // Циклічний перехід
+          const next = diffX > 0
+            ? (current + 1) % total
+            : (current - 1 + total) % total;
+          current = next;
+          scrollToReal(current, true);
+          updateDots(current);
+        }
+      });
+    })();
+
+    // Certs slider — mobile/tablet
+    (function () {
+      const track = document.getElementById('certs-slider-track');
+      const dotsContainer = document.querySelector('.certs__dots');
+      const dots = dotsContainer ? Array.from(dotsContainer.querySelectorAll('.certs__dot')) : [];
+      if (!track || !dots.length) return;
+
+      const slides = Array.from(track.querySelectorAll('.certs__slide'));
+      const total  = slides.length;
+      if (total < 2) return;
+
+      // Додаємо клони: копія останнього на початок, копія першого в кінець
+      const cloneFirst = slides[0].cloneNode(true);
+      const cloneLast  = slides[total - 1].cloneNode(true);
+      track.appendChild(cloneFirst);
+      track.insertBefore(cloneLast, slides[0]);
+      // DOM тепер: [cloneLast, slide0, slide1, ..., slideN-1, cloneFirst]
+
+      let current = 0;
+      let isJumping = false;
+
+      function slideW() {
+        return track.parentElement.offsetWidth;
+      }
+
+      function scrollToReal(idx, animate) {
+        const pos = (idx + 1) * slideW();
+        if (animate) {
+          track.scrollTo({ left: pos, behavior: 'smooth' });
+        } else {
+          track.style.scrollBehavior = 'auto';
+          track.scrollLeft = pos;
+          track.style.scrollBehavior = '';
+        }
+      }
+
+      function updateDots(idx) {
+        dots.forEach((d, i) => {
+          d.classList.toggle('certs__dot--active', i === idx);
+          d.setAttribute('aria-selected', String(i === idx));
+        });
+      }
+
+      scrollToReal(0, false);
+      updateDots(0);
+
+      track.addEventListener('scroll', () => {
+        if (isJumping) return;
+        const w = slideW();
+        if (!w) return;
+        const domIdx = Math.round(track.scrollLeft / w);
+
+        const logical = domIdx - 1;
+        if (logical >= 0 && logical < total && logical !== current) {
+          current = logical;
+          updateDots(current);
+        }
+
+        if (domIdx === 0) {
+          isJumping = true;
+          current = total - 1;
+          track.style.scrollBehavior = 'auto';
+          track.scrollLeft = total * w;
+          track.style.scrollBehavior = '';
+          updateDots(current);
+          setTimeout(() => { isJumping = false; }, 50);
+        } else if (domIdx === total + 1) {
+          isJumping = true;
+          current = 0;
+          track.style.scrollBehavior = 'auto';
+          track.scrollLeft = w;
+          track.style.scrollBehavior = '';
+          updateDots(current);
+          setTimeout(() => { isJumping = false; }, 50);
+        }
+      }, { passive: true });
+
+      dots.forEach((dot, i) => dot.addEventListener('click', () => {
+        current = i;
+        scrollToReal(i, true);
+        updateDots(i);
+      }));
+
+      // Свайп
+      let startX = 0, startY = 0, isSwiping = false;
+      track.addEventListener('touchstart', e => {
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+        isSwiping = false;
+      }, { passive: true });
+      track.addEventListener('touchmove', e => {
+        if (!isSwiping) {
+          const dx = Math.abs(e.touches[0].clientX - startX);
+          const dy = Math.abs(e.touches[0].clientY - startY);
+          isSwiping = dx > dy;
+        }
+      }, { passive: true });
+      track.addEventListener('touchend', e => {
+        if (!isSwiping) return;
+        const diffX = startX - e.changedTouches[0].clientX;
+        if (Math.abs(diffX) > 50) {
+          const next = diffX > 0
+            ? (current + 1) % total
+            : (current - 1 + total) % total;
+          current = next;
+          scrollToReal(current, true);
+          updateDots(current);
+        }
+      });
+    })();
+
+    // Certs slider — desktop (shown when > 2 images)
+    (function () {
+      const grid = document.querySelector('.certs__grid');
+      const desktopSlider = document.getElementById('certs-desktop-slider');
+      if (!grid || !desktopSlider) return;
+
+      const cards = Array.from(grid.querySelectorAll('.certs__card'));
+      if (cards.length <= 2) return; // only activate for > 2
+
+      // Hide grid, show desktop slider only on desktop
+      function initDesktopSlider() {
+        if (window.innerWidth > 1024) {
+          grid.style.display = 'none';
+          desktopSlider.classList.add('certs__desktop-slider--active');
+        } else {
+          grid.style.display = '';
+          desktopSlider.classList.remove('certs__desktop-slider--active');
+        }
+      }
+      initDesktopSlider();
+      window.addEventListener('resize', initDesktopSlider);
+
+      const track = desktopSlider.querySelector('.certs__desktop-track');
+      const dotsWrap = desktopSlider.querySelector('.certs__desktop-dots');
+      if (!track || !dotsWrap) return;
+
+      const total = cards.length;
+      // perPage = 2 (visible at once), step = 1 card at a time
+      const VISIBLE = 2;
+
+      // Build slides from grid cards
+      cards.forEach((card, i) => {
+        const slide = document.createElement('div');
+        slide.className = 'certs__desktop-slide';
+        slide.appendChild(card.cloneNode(true));
+        track.appendChild(slide);
+
+        const dot = document.createElement('button');
+        dot.className = 'certs__dot' + (i === 0 ? ' certs__dot--active' : '');
+        dot.setAttribute('role', 'tab');
+        dot.setAttribute('aria-selected', String(i === 0));
+        dot.setAttribute('aria-label', `Сертифікат ${i + 1}`);
+        dotsWrap.appendChild(dot);
+      });
+
+      const allSlides = Array.from(track.querySelectorAll('.certs__desktop-slide'));
+      const allDots   = Array.from(dotsWrap.querySelectorAll('.certs__dot'));
+
+      // Clone VISIBLE slides from each end for infinite loop
+      // Prepend last VISIBLE slides, append first VISIBLE slides
+      for (let i = 0; i < VISIBLE; i++) {
+        track.insertBefore(allSlides[total - 1 - i].cloneNode(true), track.firstChild);
+      }
+      for (let i = 0; i < VISIBLE; i++) {
+        track.appendChild(allSlides[i].cloneNode(true));
+      }
+
+      // current = index of leftmost visible real slide (0-based logical),
+      // but in DOM it's offset by VISIBLE clones prepended
+      let current = VISIBLE; // points to first real slide in DOM
+      let isTransitioning = false;
+
+      function setPos(idx, animate) {
+        track.style.transition = animate ? 'transform 0.4s ease' : 'none';
+        // each slide is 50% wide, so move by 50% per slide
+        track.style.transform  = `translateX(-${idx * 50}%)`;
+      }
+
+      function updateDots(logicalIdx) {
+        allDots.forEach((d, i) => {
+          d.classList.toggle('certs__dot--active', i === logicalIdx);
+          d.setAttribute('aria-selected', String(i === logicalIdx));
+        });
+      }
+
+      setPos(current, false);
+      updateDots(0);
+
+      track.addEventListener('transitionend', () => {
+        // Jump silently when we hit a clone zone
+        if (current >= VISIBLE + total) {
+          current = VISIBLE + (current - VISIBLE - total);
+          setPos(current, false);
+        } else if (current < VISIBLE) {
+          current = VISIBLE + total - (VISIBLE - current);
+          setPos(current, false);
+        }
+        isTransitioning = false;
+      });
+
+      function goBy(delta) {
+        if (isTransitioning) return;
+        isTransitioning = true;
+        current += delta;
+        track.style.transition = 'transform 0.4s ease';
+        track.style.transform  = `translateX(-${current * 50}%)`;
+        // logical index for dots (0-based)
+        let logical = (current - VISIBLE + total) % total;
+        updateDots(logical);
+      }
+
+      allDots.forEach((dot, i) => dot.addEventListener('click', () => {
+        if (isTransitioning) return;
+        isTransitioning = true;
+        current = VISIBLE + i;
+        setPos(current, true);
+        updateDots(i);
+      }));
+
+      desktopSlider.querySelector('.certs__desktop-prev').addEventListener('click', () => goBy(-1));
+      desktopSlider.querySelector('.certs__desktop-next').addEventListener('click', () => goBy(1));
+
+      let startX = 0;
+      track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+      track.addEventListener('touchend',   e => {
+        const diff = startX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 40) goBy(diff > 0 ? 1 : -1);
+      });
+    })();
+
+    // FAQ tab interaction
+    const faqButtons = document.querySelectorAll('.faq__q');
+    const faqAnswers = document.querySelectorAll('.faq__answer');
+
+    faqButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        faqButtons.forEach(q => {
+          q.classList.remove('faq__q--active');
+          q.setAttribute('aria-selected', 'false');
+        });
+        faqAnswers.forEach(a => a.classList.add('faq__answer--hidden'));
+
+        btn.classList.add('faq__q--active');
+        btn.setAttribute('aria-selected', 'true');
+
+        const target = document.getElementById(btn.dataset.answer);
+        if (target) target.classList.remove('faq__answer--hidden');
+      });
+    });
+  </script>
+</body>
+</html>
