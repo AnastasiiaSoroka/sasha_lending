@@ -469,6 +469,10 @@
 
       <div class="contact__form-wrap">
         <form action="https://formspree.io/f/xaqzwknn" method="POST" class="contact__form">
+                    <input type="hidden" name="page_url" id="page-url"/>
+          <script>
+              document.getElementById('page-url').value = window.location.href;
+          </script>
           <div class="contact__field">
             <input class="contact__input" type="text" id="contact-name" name="name" placeholder=" " autocomplete="name" required />
             <label for="contact-name" class="contact__label">NAME</label>
