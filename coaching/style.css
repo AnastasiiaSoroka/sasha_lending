@@ -2135,11 +2135,13 @@ ul {
   transition: opacity 0.2s ease;
 }
 
-/* Hide label when input has value or is focused */
+/* Hide label when input has value or is focused 
 .contact__input:focus + .contact__label,
 .contact__input:not(:placeholder-shown) + .contact__label {
   opacity: 0;
-}
+}*/
+.contact__field:has(.contact__input:focus) .contact__label,
+.contact__field:has(.contact__input:not(:placeholder-shown)) .contact__label { opacity: 0; }
 
 /* Textarea label — top-aligned */
 .contact__field:has(.contact__input--textarea) .contact__label {
