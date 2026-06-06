@@ -411,6 +411,19 @@ ul {
   color: var(--color-text);
   text-align: left;
   align-self: stretch;
+  margin-bottom: 48px;
+}
+
+.hero__quote{
+    font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 26px;
+   font-style:italic;
+  letter-spacing: 0.1em;
+  color: var(--color-text);
+  text-align: left;
+  align-self: stretch;
   margin-bottom: auto; /* штовхає CTA вниз */
 }
 
@@ -509,7 +522,8 @@ ul {
   }
 
   .hero__subtitle,
-  .hero__description {
+  .hero__description,
+   .hero__quote {
     font-size: clamp(15px, 1.8vw, 21px);
     line-height: 1.4;
   }
@@ -597,6 +611,10 @@ ul {
   .hero__description {
     font-size: 17px;
   }
+   .hero__quote{
+      font-size: 15px;
+       text-align: center;
+   }
 
   .hero__cta {
     width: 100%;
