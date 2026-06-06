@@ -2371,7 +2371,14 @@ ul {
   height: 3.375rem;
   display: block;
 }
-
+.footer__bottom {
+       padding-top: var(--sp-3);
+      text-align: center;
+      font-family: var(--font-body);
+      font-size: var(--text-xs);
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 0.04em;
+}
 /* ============================================================
    FOOTER — TABLET (≤ 1024px)
    ============================================================ */
