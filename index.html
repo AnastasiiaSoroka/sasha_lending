@@ -29,8 +29,8 @@
     <nav class="header__nav" aria-label="Основна навігація">
       <ul class="header__nav-list" role="list">
         <li><a href="#about" class="header__nav-link">обо мне</a></li>
-        <li><a href="/mentor" class="header__nav-link">менторство</a></li>
-        <li><a href="/coaching" class="header__nav-link">коучинг</a></li>
+        <li><a href="mentor/" class="header__nav-link">менторство</a></li>
+        <li><a href="coaching/" class="header__nav-link">коучинг</a></li>
       </ul>
     </nav>
 
@@ -63,8 +63,8 @@
   <!-- Mobile dropdown nav -->
   <nav class="mobile-nav" id="mobile-nav" aria-label="Мобільна навігація">
     <a href="#about" class="mobile-nav__link">обо мне</a>
-    <a href="/mentor" class="mobile-nav__link">менторство</a>
-    <a href="/coaching" class="mobile-nav__link">коучинг</a>
+    <a href="mentor/" class="mobile-nav__link">менторство</a>
+    <a href="coaching/" class="mobile-nav__link">коучинг</a>
   </nav>
 
   <main id="main-content">
@@ -227,7 +227,7 @@
               Со мной возможно научиться мыслить по-другому и найти новые возможности для развития
               Когда не хватает ясности, фокуса или смелости сделать следующий шаг.
             </p>
-            <a href="/coaching" class="btn btn--lavender help__btn">ПОДРОБНЕЕ</a>
+            <a href="coaching/" class="btn btn--lavender help__btn">ПОДРОБНЕЕ</a>
           </article>
 
           <article class="help__card">
@@ -236,7 +236,7 @@
             <p class="help__card-text">
               Помогаю найти время на то, что важно
             </p>
-            <a href="/mentor" class="btn btn--lavender help__btn">ПОДРОБНЕЕ</a>
+            <a href="mentor/" class="btn btn--lavender help__btn">ПОДРОБНЕЕ</a>
           </article>
         </div>
       </div>
@@ -268,7 +268,7 @@
             <p class="formats__card-text">
               Коучинг - это пространство, где вы наконец можете остановиться и подумать о себе без спешки. <br/>Моя задача - помочь вам увидеть собственные ответы, опираясь на ваш уникальный опыт, ценности и цели.<br/> Я работаю с теми, кто хочет проявляться, расти и действовать — без выгорания и ощущения, что живёшь чужую жизнь.
             </p>
-            <a href="/coaching" class="btn btn--lavender formats__btn">ПОДРОБНЕЕ</a>
+            <a href="coaching/" class="btn btn--lavender formats__btn">ПОДРОБНЕЕ</a>
           </article>
 
           <article class="formats__card formats__card--no-top">
@@ -276,7 +276,7 @@
             <p class="formats__card-text">
               Это индивидуальная работа со мной в формате менторинга. <br/>Я не читаю лекции и не даю универсальные советы - мы вместе разбираем твою конкретную ситуацию и выстраиваем систему, которая работает именно для тебя.
             </p>
-            <a href="/mentor" class="btn btn--lavender formats__btn">ПОДРОБНЕЕ</a>
+            <a href="mentor/" class="btn btn--lavender formats__btn">ПОДРОБНЕЕ</a>
           </article>
         </div>
       </div>
@@ -523,8 +523,7 @@
         чтобы договориться об удобном времени<br />
         и обсудить детали
       </p>
-
-      <div class="contact__form-wrap">
+      <form action="https://formspree.io/f/xaqzwknn" method="POST" class="contact__form-wrap">
         <div class="contact__field">
           <label for="contact-name" class="sr-only">Ім'я</label>
           <input
@@ -537,12 +536,12 @@
           />
         </div>
         <div class="contact__field">
-          <label for="contact-phone" class="sr-only">Номер телефона</label>
+          <label for="contact-phone" class="sr-only">telegram</label>
           <input
             type="tel"
             id="contact-phone"
-            name="phone"
-            placeholder="phone number"
+            name="telegram"
+            placeholder="telegram"
             class="contact__input"
             autocomplete="tel"
           />
@@ -568,9 +567,9 @@
             rows="4"
           ></textarea>
         </div>
-        <button type="button" class="btn contact__submit">оставить запрос</button>
+        <button type="submit" class="btn contact__submit">оставить запрос</button>
         <p class="contact__privacy">Нажимая на кнопку, вы даете согласие на обработку персональных данных и соглашаетесь c политикой конфиденциальности</p>
-      </div>
+      </form>
     </section>
 
   </main>
