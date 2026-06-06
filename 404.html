@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Сторінку не знайдено — Олександра Новохатня" />
+  <title>404 — Сторінку не знайдено | Олександра Новохатня</title>
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <link rel="apple-touch-icon" href="favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* =====================================================
+       RESET & CSS CUSTOM PROPERTIES
+       ===================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --clr-bg:       #FFF9F3;
+      --clr-text:     #2B2B2B;
+      --clr-lavender: #C7B8EA;
+      --clr-amber:    #FFC857;
+      --clr-white:    #FFFFFF;
+      --clr-black:    #000000;
+
+      --blur-lavender: rgba(199, 184, 234, 0.6);
+      --blur-amber:    rgba(255, 200, 87, 0.5);
+
+      --font-heading: 'Playfair Display', Georgia, serif;
+      --font-body:    'Montserrat', sans-serif;
+
+      --text-xs:  clamp(0.875rem, 1.5vw, 1rem);
+      --text-sm:  clamp(1rem, 1.8vw, 1.125rem);
+      --text-md:  clamp(1rem, 2vw, 1.3125rem);
+      --text-lg:  clamp(1.375rem, 3vw, 2rem);
+      --text-xl:  clamp(1.625rem, 3.5vw, 2.75rem);
+      --text-hero:clamp(1.75rem, 5vw, 3.4375rem);
+
+      --sp-1:  0.5rem;
+      --sp-2:  1rem;
+      --sp-3:  1.5rem;
+      --sp-4:  2rem;
+      --sp-5:  2.5rem;
+      --sp-6:  3rem;
+      --sp-8:  4rem;
+      --sp-10: 5rem;
+      --sp-12: 6rem;
+
+      --max-width:    1280px;
+      --container-px: clamp(1rem, 5vw, 5rem);
+      --header-h:     4.375rem;
+
+      --radius-pill: 2.1875rem;
+      --radius-card: 1.25rem;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      background-color: var(--clr-bg);
+      color: var(--clr-text);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      line-height: 1.6;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    ul[role="list"] { list-style: none; }
+
+    /* =====================================================
+       BUTTONS
+       ===================================================== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-body);
+      font-size: var(--text-xs);
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 2px solid transparent;
+      border-radius: var(--radius-pill);
+      padding: 0.875rem 2.25rem;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .btn--lavender {
+      background-color: var(--clr-lavender);
+      border-color: var(--clr-lavender);
+      color: var(--clr-text);
+    }
+
+    .btn--lavender:hover,
+    .btn--lavender:focus-visible {
+      background-color: #b0a0d8;
+      border-color: #b0a0d8;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(199, 184, 234, 0.45);
+    }
+
+    .btn--amber {
+      background-color: var(--clr-amber);
+      border-color: var(--clr-amber);
+      color: var(--clr-text);
+    }
+
+    .btn--amber:hover,
+    .btn--amber:focus-visible {
+      background-color: #e8a800;
+      border-color: #e8a800;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 200, 87, 0.4);
+    }
+
+    .btn:focus-visible {
+      outline: 3px solid var(--clr-amber);
+      outline-offset: 3px;
+    }
+
+    /* =====================================================
+       HEADER
+       ===================================================== */
+    .header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: var(--header-h);
+      padding-inline: clamp(1.5rem, 5.86vw, 4.6875rem);
+      background: transparent;
+    }
+
+    .header__nav-list {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      list-style: none;
+    }
+
+    .header__nav-list li {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0.625rem;
+    }
+
+    .header__nav-link {
+      font-family: var(--font-body);
+      font-size: var(--text-md);
+      font-weight: 400;
+      line-height: 1.0869;
+      color: var(--clr-text);
+      text-decoration: none;
+      white-space: nowrap;
+      transition: color 0.2s;
+    }
+
+    .header__nav-link:hover,
+    .header__nav-link:focus-visible { color: #9b7fd4; }
+
+    .header__insta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.3125rem;
+      height: 2.3125rem;
+      color: var(--clr-text);
+      transition: opacity 0.2s;
+      flex-shrink: 0;
+    }
+
+    .header__insta:hover,
+    .header__insta:focus-visible { opacity: 0.6; }
+
+    .header__right {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-shrink: 0;
+    }
+
+    /* Burger (mobile) */
+    .burger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      width: 2.5rem;
+      height: 2.5rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      z-index: 110;
+    }
+
+    .burger__line {
+      display: block;
+      width: 1.5rem;
+      height: 2px;
+      background: var(--clr-text);
+      border-radius: 2px;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    /* Lang switcher */
+    .lang { position: relative; }
+
+    .lang__btn {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      background: none;
+      border: 1px solid var(--clr-lavender);
+      border-radius: var(--radius-pill);
+      padding: 0.3rem 0.75rem;
+      cursor: pointer;
+      font-family: var(--font-body);
+      font-size: 0.9375rem;
+      font-weight: 400;
+      color: var(--clr-text);
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+      transition: border-color 0.2s ease;
+    }
+
+    .lang__btn:hover { border-color: #b8a7df; }
+
+    .lang__arrow {
+      flex-shrink: 0;
+      transition: transform 0.25s ease;
+    }
+
+    /* Mobile nav */
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      top: var(--header-h);
+      left: 0;
+      right: 0;
+      background: var(--clr-bg);
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      z-index: 150;
+      padding: var(--sp-3) var(--container-px) var(--sp-4);
+      flex-direction: column;
+      gap: var(--sp-1);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    }
+
+    .mobile-nav--open { display: flex; }
+
+    .mobile-nav__link {
+      font-family: var(--font-body);
+      font-size: var(--text-md);
+      font-weight: 400;
+      color: var(--clr-text);
+      text-decoration: none;
+      padding: 0.625rem 0;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      transition: color 0.2s;
+    }
+
+    .mobile-nav__link:last-child { border-bottom: none; }
+
+    .mobile-nav__link:hover,
+    .mobile-nav__link:focus-visible { color: #9b7fd4; }
+
+
+
+    /* =====================================================
+       404 SECTION
+       ===================================================== */
+    .not-found {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: calc(var(--header-h) + var(--sp-8)) var(--container-px) var(--sp-12);
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    /* Blur decorations — reuse hero__blur pattern */
+    .not-found__blur {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .not-found__blur--amber {
+      width: 22rem;
+      height: 22rem;
+      background: var(--blur-amber);
+      top: -4rem;
+      right: -4rem;
+    }
+
+    .not-found__blur--lavender {
+      width: 26rem;
+      height: 26rem;
+      background: var(--blur-lavender);
+      bottom: -6rem;
+      left: -6rem;
+    }
+
+    .not-found__inner {
+      position: relative;
+      z-index: 1;
+      max-width: 42rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--sp-4);
+    }
+
+    /* Big 404 number — uses hero title style */
+    .not-found__code {
+      font-family: var(--font-heading);
+      font-size: clamp(6rem, 18vw, 14rem);
+      font-weight: 600;
+      line-height: 1;
+      letter-spacing: 0.05em;
+      color: var(--clr-amber);
+      position: relative;
+      display: inline-block;
+    }
+
+    /* Lavender underline bar — matches title-underline pattern */
+    .not-found__code::after {
+      content: '';
+      display: block;
+      width: 100%;
+      height: 10px;
+      background: var(--clr-lavender);
+      border-radius: 4px;
+      margin-top: 0.25rem;
+    }
+
+    /* Heading — who__title style */
+    .not-found__title {
+      font-family: var(--font-heading);
+      font-size: var(--text-xl);
+      font-weight: 600;
+      line-height: 1.0869;
+      letter-spacing: 0.05em;
+      color: var(--clr-text);
+    }
+
+    /* Subtitle — hero__subtitle pattern */
+    .not-found__subtitle {
+      font-family: var(--font-body);
+      font-size: var(--text-md);
+      font-weight: 400;
+      line-height: 1.6;
+      letter-spacing: 0.06em;
+      color: var(--clr-text);
+      max-width: 32rem;
+    }
+
+    /* Who card — reuse for hint block */
+    .not-found__card {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: var(--sp-3) var(--sp-5);
+      background: var(--clr-white);
+      border-radius: var(--radius-card);
+      box-shadow: 0 4px 20px rgba(199, 184, 234, 0.25);
+      gap: var(--sp-2);
+      flex-wrap: wrap;
+    }
+
+    .not-found__card-icon {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .not-found__card-text {
+      font-family: var(--font-body);
+      font-size: var(--text-sm);
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      color: var(--clr-text);
+      text-align: center;
+    }
+
+    /* CTA row */
+    .not-found__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--sp-2);
+      justify-content: center;
+      margin-top: var(--sp-2);
+    }
+
+    /* =====================================================
+       FOOTER (simplified, matches landing footer style)
+       ===================================================== */
+    .footer {
+      background: var(--clr-text);
+      color: var(--clr-white);
+      padding: var(--sp-6) var(--container-px);
+    }
+
+    .footer__top {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--sp-3);
+      text-align: center;
+      padding-bottom: var(--sp-4);
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .footer__name {
+      font-family: var(--font-heading);
+      font-size: var(--text-lg);
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: var(--clr-amber);
+    }
+
+    .footer__nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--sp-2);
+      justify-content: center;
+      list-style: none;
+    }
+
+    .footer__nav-link {
+      font-family: var(--font-body);
+      font-size: var(--text-xs);
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      color: var(--clr-white);
+      opacity: 0.75;
+      transition: opacity 0.2s;
+    }
+
+    .footer__nav-link:hover,
+    .footer__nav-link:focus-visible { opacity: 1; }
+
+    .footer__bottom {
+      padding-top: var(--sp-3);
+      text-align: center;
+      font-family: var(--font-body);
+      font-size: var(--text-xs);
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 0.04em;
+    }
+
+    /* =====================================================
+       RESPONSIVE
+       ===================================================== */
+    @media (max-width: 1023px) {
+      .header__nav { display: none; }
+      .burger { display: flex; }
+
+      .not-found__blur--amber {
+        width: 12rem;
+        height: 12rem;
+        top: -2rem;
+        right: -2rem;
+      }
+
+      .not-found__blur--lavender {
+        width: 14rem;
+        height: 14rem;
+        bottom: -3rem;
+        left: -3rem;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .footer__top {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        text-align: left;
+      }
+
+      .footer__nav { justify-content: flex-end; }
+    }
+
+    @media (min-width: 1280px) {
+      .header { padding-inline: 4.6875rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header" role="banner">
+    <button class="burger" id="burger-btn" aria-label="Відкрити меню" aria-expanded="false" aria-controls="mobile-nav">
+      <span class="burger__line"></span>
+      <span class="burger__line"></span>
+      <span class="burger__line"></span>
+    </button>
+
+    <nav class="header__nav" aria-label="Основна навігація">
+      <ul class="header__nav-list" role="list">
+        <li><a href="index.html" class="header__nav-link">обо мне</a></li>
+        <li><a href="mentor/index.html" class="header__nav-link">менторство</a></li>
+        <li><a href="coaching/index.html" class="header__nav-link">коучинг</a></li>
+      </ul>
+    </nav>
+
+    <div class="header__right">
+      <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"
+         class="header__insta" aria-label="Перейти до Instagram">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+          <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.8"/>
+          <circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.8"/>
+          <circle cx="17.5" cy="6.5" r="1" fill="currentColor"/>
+        </svg>
+      </a>
+    </div>
+  </header>
+
+  <!-- Mobile nav -->
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Мобільна навігація">
+    <a href="index.html#about" class="mobile-nav__link">про мене</a>
+    <a href="mentor/index.html" class="mobile-nav__link">менторство</a>
+    <a href="coaching/index.html" class="mobile-nav__link">коучінг</a>
+  </nav>
+
+  <main id="main-content">
+
+    <!-- 404 SECTION -->
+    <section class="not-found" aria-labelledby="not-found-title">
+      <!-- Декоративні blur-плями як на hero -->
+      <div class="not-found__blur not-found__blur--amber" aria-hidden="true"></div>
+      <div class="not-found__blur not-found__blur--lavender" aria-hidden="true"></div>
+
+      <div class="not-found__inner">
+
+        <!-- Велике число 404 в стилі hero__title -->
+        <p class="not-found__code" aria-hidden="true">404</p>
+
+        <!-- Заголовок в стилі who__title -->
+        <h1 class="not-found__title" id="not-found-title">
+          Сторінку не знайдено
+        </h1>
+
+        <!-- Пояснення в стилі hero__subtitle -->
+        <p class="not-found__subtitle">
+          Схоже, ця сторінка переїхала або ніколи не існувала.
+          Не переживайте — повертайтесь на головну і знайдіть усе, що вам потрібно.
+        </p>
+
+        <!-- Підказка-картка в стилі who__card -->
+        <div class="not-found__card" role="note">
+          <span class="not-found__card-icon" aria-hidden="true">💡</span>
+          <p class="not-found__card-text">
+            На головній сторінці ви знайдете інформацію про коучинг, менторство та формати роботи
+          </p>
+        </div>
+
+        <!-- Кнопки повернення в стилі btn -->
+        <div class="not-found__actions">
+          <a href="index.html" class="btn btn--lavender">
+            ← Повернутись на головну
+          </a>
+
+        </div>
+
+      </div>
+    </section>
+
+
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer__top">
+      <p class="footer__name">Олександра Новохатня</p>
+      <nav aria-label="Навігація в футері">
+        <ul class="footer__nav" role="list">
+          <li><a href="index.html" class="footer__nav-link">про мене</a></li>
+          <li><a href="mentor/index.html" class="footer__nav-link">менторство</a></li>
+          <li><a href="coaching/index.html" class="footer__nav-link">коучінг</a></li>
+
+        </ul>
+      </nav>
+    </div>
+    <p class="footer__bottom">© 2026 Олександра Новохатня. Усі права захищені.</p>
+  </footer>
+
+  <script>
+    // Burger menu
+    const burgerBtn = document.getElementById('burger-btn');
+    const mobileNav = document.getElementById('mobile-nav');
+
+    if (burgerBtn && mobileNav) {
+      burgerBtn.addEventListener('click', () => {
+        const isOpen = mobileNav.classList.toggle('mobile-nav--open');
+        burgerBtn.setAttribute('aria-expanded', String(isOpen));
+      });
+
+      mobileNav.querySelectorAll('.mobile-nav__link').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileNav.classList.remove('mobile-nav--open');
+          burgerBtn.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1775,6 +1775,15 @@ ul[role="list"] {
   display: block;
 }
 
+.footer__bottom {
+       padding-top: var(--sp-3);
+      text-align: center;
+      font-family: var(--font-body);
+      font-size: var(--text-xs);
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 0.04em;
+}
+
 /* =====================================================
    BURGER MENU (mobile only, hidden on desktop)
    ===================================================== */
