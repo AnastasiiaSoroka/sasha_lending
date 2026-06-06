@@ -525,6 +525,10 @@
       </p>
       <form action="https://formspree.io/f/xaqzwknn" method="POST" class="contact__form-wrap">
         <div class="contact__field">
+          <input type="hidden" name="page_url" id="page-url"/>
+          <script>
+              document.getElementById('page-url').value = window.location.href;
+          </script>
           <label for="contact-name" class="sr-only">Ім'я</label>
           <input
             type="text"
