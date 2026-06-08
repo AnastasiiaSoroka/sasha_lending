@@ -1811,6 +1811,41 @@ ul {
   gap: 0.75rem;
 }
 
+/* Card 3 — top-right: image_33 */
+.reviews__card[data-index="3"] {
+  width: 28.03rem;  /* ~448px */
+  min-height: 14.08rem;
+  right: 0;
+  top: 2rem;
+  left: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* Card 4 — top-right: image_33 */
+.reviews__card[data-index="4"] {
+  width: 28.03rem;  /* ~448px */
+  min-height: 14.08rem;
+  right: 10rem;
+  top: 10rem;
+  left: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* Card 5 — top-right: image_33 */
+.reviews__card[data-index="5"] {
+  width: 28.03rem;  /* ~448px */
+  min-height: 14.08rem;
+  top: 10rem;
+  left: 5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
 /* Content inside cards */
 /* ============================================================
    MOBILE SLIDER
