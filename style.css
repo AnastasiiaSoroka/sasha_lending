@@ -75,6 +75,10 @@ img {
   height: auto;
   display: block;
 }
+a {
+    text-decoration: none;
+    color: inherit;
+}
 
 ul[role="list"] {
   list-style: none;
