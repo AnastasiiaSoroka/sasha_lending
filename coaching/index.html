@@ -55,10 +55,10 @@
       <!-- MOBILE: бургер ліворуч + Instagram + мова праворуч -->
       <div class="nav__mobile-controls">
 
-        <button class="nav__burger" id="burger-btn" aria-label="Відкрити меню" aria-expanded="false" aria-controls="mobile-menu">
-          <span class="nav__burger-line"></span>
-          <span class="nav__burger-line"></span>
-          <span class="nav__burger-line"></span>
+        <button class="burger" id="burger-btn" aria-label="Відкрити меню" aria-expanded="false" aria-controls="mobile-nav" type="button">
+          <span class="burger__line"></span>
+          <span class="burger__line"></span>
+          <span class="burger__line"></span>
         </button>
 
         <div class="nav__mobile-right">
@@ -88,16 +88,14 @@
       </div>
     </nav>
 
-    <!-- MOBILE dropdown menu -->
-    <div class="nav__dropdown" id="mobile-menu" aria-hidden="true">
-      <ul class="nav__dropdown-list">
-        <li><a href="/sasha_lending/" class="nav__dropdown-link">обо мне</a></li>
-        <li><a href="/mentor/" class="nav__dropdown-link">менторство</a></li>
-        <li><a href="#work" class="nav__dropdown-link">коучинг</a></li>
-      </ul>
-    </div>
-
   </header>
+
+  <!-- MOBILE dropdown nav -->
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Мобільна навігація">
+    <a href="/sasha_lending/" class="mobile-nav__link">обо мне</a>
+    <a href="/mentor/" class="mobile-nav__link">менторство</a>
+    <a href="#work" class="mobile-nav__link">коучинг</a>
+  </nav>
 
   <!-- HERO SECTION -->
   <main>
@@ -581,14 +579,12 @@
 
   <script>
     const burgerBtn = document.getElementById('burger-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileNav = document.getElementById('mobile-nav');
 
     burgerBtn.addEventListener('click', () => {
-      const isOpen = burgerBtn.getAttribute('aria-expanded') === 'true';
-      burgerBtn.setAttribute('aria-expanded', String(!isOpen));
-      mobileMenu.setAttribute('aria-hidden', String(isOpen));
-      burgerBtn.classList.toggle('nav__burger--open', !isOpen);
-      mobileMenu.classList.toggle('nav__dropdown--open', !isOpen);
+      const isOpen = mobileNav.classList.toggle('mobile-nav--open');
+      burgerBtn.classList.toggle('burger--open', isOpen);
+      burgerBtn.setAttribute('aria-expanded', String(isOpen));
     });
 
     // ============================================================
@@ -1061,12 +1057,11 @@
       }
     });
 
-    mobileMenu.querySelectorAll('.nav__dropdown-link').forEach(link => {
+    mobileNav.querySelectorAll('.mobile-nav__link').forEach(link => {
       link.addEventListener('click', () => {
+        mobileNav.classList.remove('mobile-nav--open');
+        burgerBtn.classList.remove('burger--open');
         burgerBtn.setAttribute('aria-expanded', 'false');
-        mobileMenu.setAttribute('aria-hidden', 'true');
-        burgerBtn.classList.remove('nav__burger--open');
-        mobileMenu.classList.remove('nav__dropdown--open');
       });
     });
   </script>

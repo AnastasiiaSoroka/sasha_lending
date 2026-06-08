@@ -231,78 +231,75 @@ ul {
 /* ============================================================
    BURGER BUTTON
    ============================================================ */
-.nav__burger {
-  display: flex;
+.burger {
+  display: none;
   flex-direction: column;
   justify-content: center;
   gap: 5px;
-  width: 36px;
-  height: 36px;
+  width: 2rem;
+  height: 2rem;
   background: none;
   border: none;
   cursor: pointer;
-  padding: 4px;
+  padding: 0;
+  z-index: 200;
   flex-shrink: 0;
 }
 
-.nav__burger-line {
+.burger__line {
   display: block;
   width: 100%;
   height: 2px;
   background-color: var(--color-main-dark);
   border-radius: 2px;
   transition: transform 0.3s ease, opacity 0.3s ease;
-  transform-origin: center;
 }
 
 /* Анімація → хрестик */
-.nav__burger--open .nav__burger-line:nth-child(1) {
-  transform: translateY(7px) rotate(45deg);
-}
-.nav__burger--open .nav__burger-line:nth-child(2) {
-  opacity: 0;
-  transform: scaleX(0);
-}
-.nav__burger--open .nav__burger-line:nth-child(3) {
-  transform: translateY(-7px) rotate(-45deg);
-}
+.burger--open .burger__line:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.burger--open .burger__line:nth-child(2) { opacity: 0; }
+.burger--open .burger__line:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 /* ============================================================
    MOBILE DROPDOWN MENU
    ============================================================ */
-.nav__dropdown {
-  display: none; /* показується тільки на mobile */
-  overflow: hidden;
-  max-height: 0;
-  transition: max-height 0.35s ease;
-  background-color: var(--color-bg);
-  border-top: 1px solid rgba(0, 0, 0, 0.06);
-}
-
-.nav__dropdown--open {
-  max-height: 300px;
-}
-
-.nav__dropdown-list {
-  display: flex;
+.mobile-nav {
+  display: none;
+  position: fixed;
+  top: var(--header-h);
+  left: 0;
+  right: 0;
+  background: var(--color-bg);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  z-index: 150;
+  padding: var(--sp-3, 16px) var(--page-padding) var(--sp-4, 24px);
   flex-direction: column;
-  padding: 12px var(--page-padding) 20px;
   gap: 4px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
 }
 
-.nav__dropdown-link {
+.mobile-nav--open {
+  display: flex;
+}
+
+.mobile-nav__link {
   font-family: var(--font-body);
+  font-size: var(--text-md, 19px);
   font-weight: 400;
-  font-size: 19px;
-  line-height: 108.69%;
   color: var(--color-main-dark);
+  text-decoration: none;
   padding: 10px 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-  transition: opacity 0.2s ease;
+  transition: color 0.2s;
 }
 
-.nav__dropdown-link:hover {
-  opacity: 0.65;
+.mobile-nav__link:last-child {
+  border-bottom: none;
+}
+
+.mobile-nav__link:hover,
+.mobile-nav__link:focus-visible {
+  color: #9b7fd4;
 }
 
 /* ============================================================
@@ -488,9 +485,9 @@ ul {
     gap: 0.75rem;
   }
 
-  /* Dropdown показуємо на tablet/mobile */
-  .nav__dropdown {
-    display: block;
+  /* Показуємо бургер на tablet/mobile */
+  .burger {
+    display: flex;
   }
 
   /* Hero — пропорційне масштабування, розкладка незмінна */
