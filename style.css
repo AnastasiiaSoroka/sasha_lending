@@ -2111,9 +2111,12 @@ ul[role="list"] {
   .reviews__slider { display: none; }
 
   /* Card positions (Figma) */
-  .reviews__card[data-index="0"] { width: 34.5625rem; height: 9.1875rem;  left: 0;          top: 0; }
+  .reviews__card[data-index="0"] { width: 34.5625rem;  left: 0;          top: 0; }
   .reviews__card[data-index="1"] { width: 46.1875rem; height: 11.5rem;    right: 0; bottom: 0; left: auto; top: auto; }
-  .reviews__card[data-index="2"] { width: 28rem;      height: 14.0625rem; right: 0; top: 2rem; left: auto; }
+  .reviews__card[data-index="2"] { width: 28rem;       right: 0; top: 2rem; left: auto; }
+  .reviews__card[data-index="3"] { width: 34.5625rem; height: 9.1875rem;  left: 45rem;          top: 10rem; }
+  .reviews__card[data-index="4"] { width: 46.1875rem; height: 11.5rem;    right: 25rem; bottom: 5rem; left: auto; top: auto; }
+  .reviews__card[data-index="5"] { width: 28rem;      height: 14.0625rem; right: 30rem; top: 2rem; left: auto; }
 
   /* FAQ side-by-side */
   .faq__layout {
