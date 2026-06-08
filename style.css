@@ -557,7 +557,7 @@ ul[role="list"] {
    pointing downward-outward toward each card.
    Screenshot: arrows span roughly 60% of the section width. */
 .who__arrows {
-  display: none; /* hidden on mobile, shown ≥1024px */
+  display: flex; /* hidden on mobile, shown ≥1024px */
   align-items: flex-start;
   justify-content: center;
   gap: 5rem; /* visual gap between the two arrows */
@@ -579,7 +579,7 @@ ul[role="list"] {
 /* Cards row: space-between on desktop */
 .who__cards {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   gap: var(--sp-4);
   width: 100%;
