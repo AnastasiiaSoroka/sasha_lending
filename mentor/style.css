@@ -387,16 +387,17 @@ ul {
   margin-bottom: 24px;
 }
 
-.hero__text{
-     font-family: var(--font-body);
-  font-weight: 400;
-  font-size: 21px;
-  line-height: 26px;
-  letter-spacing: 0.1em;
-  color: var(--color-text);
-  align-self: stretch;
-  /* штовхає CTA + badge до низу колонки */
-  margin-bottom: auto;
+.hero__quote{
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 26px;
+    font-style: italic;
+    letter-spacing: 0.1em;
+    color: var(--color-text);
+    text-align: left;
+    align-self: stretch;
+    margin-bottom: auto;
 }
 
 /* CTA Button */
@@ -548,8 +549,8 @@ ul {
     font-size: 17px;
   }
 
-   .hero__text{
-      font-size: 17px;
+   .hero__quote{
+      font-size: 15px;
    }
   .hero__cta {
     font-size: 17px;
@@ -592,9 +593,11 @@ ul {
   }
 
   .hero__subtitle,
-  .hero__description,
-   .hero__text{
+  .hero__description{
     font-size: 15px;
+  }
+   .hero__quote{
+    font-size: 14px;
   }
 
   .hero__cta {
@@ -686,7 +689,12 @@ ul {
 
   .hero__description {
     font-size: 16px;
-    margin-bottom: 0;
+    text-align: center;
+  }
+
+   .hero__quote{
+    font-size: 15px;
+   margin-bottom: 0;
     text-align: center;
   }
 
