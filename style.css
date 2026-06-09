@@ -1751,7 +1751,6 @@ ul[role="list"] {
 }
 
 .footer__nav-link {
-  color: var(--clr-text);
   text-decoration: none;
   padding: 0.375rem 0.625rem;
   transition: color 0.2s;
@@ -1793,6 +1792,9 @@ ul[role="list"] {
       font-size: var(--text-xs);
       color: rgba(255,255,255,0.45);
       letter-spacing: 0.04em;
+   display:flex;
+   flex-direction: column;
+   gap: 0.5rem;
 }
 
 /* =====================================================
@@ -2005,7 +2007,7 @@ ul[role="list"] {
   }
 
   .footer__nav {
-    justify-content: flex-end;
+    justify-content: center;
   }
 
   /* Contact: row layout на планшеті+ */
