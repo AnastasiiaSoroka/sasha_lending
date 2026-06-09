@@ -1750,6 +1750,13 @@ ul[role="list"] {
   transition: color 0.2s;
 }
 
+.footer__nav-link {
+  color: var(--clr-text);
+  text-decoration: none;
+  padding: 0.375rem 0.625rem;
+  transition: color 0.2s;
+}
+
 .footer__link:hover,
 .footer__link:focus-visible {
   color: #4a2d7a;
