@@ -2256,6 +2256,7 @@ ul {
   flex-direction: row;
   align-items: center;
   gap: 1.25rem;
+justify-content: center;
 }
 
 .footer__nav-link {
@@ -2310,7 +2311,9 @@ ul {
     letter-spacing: 0.04em;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 1rem;
+   margin-bottom: 1rem;
+   margin-top: 2rem;
 }
 
 @media (max-width: 1024px) {
