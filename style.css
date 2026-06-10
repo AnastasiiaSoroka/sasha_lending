@@ -836,6 +836,8 @@ ul[role="list"] {
   gap: var(--sp-4);
   position: relative;
   overflow: hidden;
+   -webkit-mask-image: -webkit-radial-gradient(white, black); /* примусове обрізання в Safari */
+  transform: translateZ(0);
 }
 
 .help__blur {
