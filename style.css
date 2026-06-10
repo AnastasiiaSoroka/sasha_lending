@@ -848,6 +848,7 @@ ul[role="list"] {
   background: rgba(199, 184, 234, 0.5);
   filter: blur(40px);
   pointer-events: none;
+   z-index: -1;
 }
 
 .help__blur--tl { top: -7rem; left: -6rem; }
